@@ -189,7 +189,7 @@
 			path = DataStore;
 			sourceTree = "<group>";
 		};
-		8655285A20F6D74000151E5F /* Swift Extensions */ = {
+		8655285A20F6D74000151E5F /* SwiftExtensions */ = {
 			isa = PBXGroup;
 			children = (
 				862EF78120EB3C39002B75C9 /* Closures.swift */,
@@ -197,7 +197,7 @@
 				86C944FF210834DC005B7145 /* MapReduceFilter.swift */,
 				86767DAA21A8B35A00C21FE2 /* RawRepresentable+Extensions.swift */,
 			);
-			path = "Swift Extensions";
+			path = SwiftExtensions;
 			sourceTree = "<group>";
 		};
 		8664579A210BA5D300D4952C /* Networking */ = {
@@ -229,8 +229,8 @@
 				860DCCC920B67E66006B8A4B /* Protocols */,
 				860DCCC820B67E45006B8A4B /* Primitives */,
 				86F5A4A721093F1100D57F73 /* Endpoints */,
-				86A7245A2113D846001D4F87 /* Foundation Extensions */,
-				8655285A20F6D74000151E5F /* Swift Extensions */,
+				86A7245A2113D846001D4F87 /* FoundationExtensions */,
+				8655285A20F6D74000151E5F /* SwiftExtensions */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -275,7 +275,7 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
-		86A7245A2113D846001D4F87 /* Foundation Extensions */ = {
+		86A7245A2113D846001D4F87 /* FoundationExtensions */ = {
 			isa = PBXGroup;
 			children = (
 				86A7245B2113D846001D4F87 /* Array+Extensions.swift */,
@@ -295,7 +295,7 @@
 				86A724602113D846001D4F87 /* UserDefaults+Extensions.swift */,
 				86DD00C2211F5DCF0009698C /* String+Extensions.swift */,
 			);
-			path = "Foundation Extensions";
+			path = FoundationExtensions;
 			sourceTree = "<group>";
 		};
 		86F5A4A721093F1100D57F73 /* Endpoints */ = {

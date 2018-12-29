@@ -21,7 +21,7 @@ public extension Array where Element: Keyed {
     }
 }
 
-public struct Key: ExpressibleByStringLiteral, RawRepresentable, Codable, Hashable {
+public struct Key: ExpressibleByStringLiteral, RawRepresentable, Hashable {
     public let rawValue: String
     
     public init(rawValue: String) {
@@ -44,4 +44,19 @@ public struct Key: ExpressibleByStringLiteral, RawRepresentable, Codable, Hashab
         let rawValues = self.rawValue.components(separatedBy: "+")
         return rawValues.map { Key(rawValue: $0) }
     }
+}
+
+extension Key: Codable {
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let rawValue = try container.decode(String.self)
+        self.init(rawValue)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(rawValue)
+    }
+
 }

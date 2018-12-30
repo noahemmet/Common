@@ -46,5 +46,7 @@ public struct ThrownError: Error, CustomStringConvertible {
 }
 
 public func fatalError(_ error: @autoclosure () -> Error, file: StaticString = #file, line: UInt = #line) -> Never {
-    return fatalError("\(error())", file: file, line: line)
+	let errorString = "\(error())"
+	print(errorString)
+    return fatalError(errorString, file: file, line: line)
 }

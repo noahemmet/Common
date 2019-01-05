@@ -41,6 +41,13 @@ public extension Optional {
         }
         return unwrapped
     }
+	
+	func unwrap(orThrow reason: String) throws -> Wrapped {
+		guard let unwrapped = self else {
+			throw ThrownError(reason)
+		}
+		return unwrapped
+	}
 }
 
 public extension Optional where Wrapped == String {

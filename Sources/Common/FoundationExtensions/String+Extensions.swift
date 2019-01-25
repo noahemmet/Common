@@ -63,6 +63,11 @@ public extension String {
 			return (match: match, result: result)
 		}
 		
+		// If there are no matches, return self.
+		guard matchResults.isEmpty == false else {
+			return [.between(self)]
+		}
+		
 		var wordSplitResults: [WordSplitResult] = []
 		for (index, matchResult) in matchResults.enumerated() {
 			// append the previous inbetween text

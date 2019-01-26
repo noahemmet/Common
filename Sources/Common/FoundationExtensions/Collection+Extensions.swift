@@ -19,3 +19,12 @@ public extension Collection where Element: BinaryFloatingPoint {
         return isEmpty ? 0 : total / Element(count) 
     }
 }
+
+public extension Collection where Element: Equatable {
+	func contains(_ element: Element?) -> Bool {
+		guard let element = element else {
+			return false
+		}
+		return self.contains(element)
+	}
+}

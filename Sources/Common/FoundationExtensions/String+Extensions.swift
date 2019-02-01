@@ -30,10 +30,25 @@ public extension String {
 		return prefix(1).uppercased() + dropFirst()
 	}
 	
+	var uppercasingFirst: String {
+		return prefix(1).uppercased() + dropFirst()
+	}
+	
+	var lowercasingFirst: String {
+		return prefix(1).lowercased() + dropFirst()
+	}
+	
 	var camelCased: String {
-		return self.components(separatedBy: " ")
-			.map { return $0.lowercased().capitalizingFirstLetter() }
-			.joined()
+		guard !isEmpty else {
+			return ""
+		}
+		
+		let parts = self.components(separatedBy: CharacterSet.alphanumerics.inverted)
+		
+		let first = String(describing: parts.first!).lowercasingFirst
+		let rest = parts.dropFirst().map({String($0).uppercasingFirst})
+		
+		return ([first] + rest).joined(separator: "")
 	}
 	
 	/// Downcases the string and replaces whitespace with a `_`. Useful for keys.

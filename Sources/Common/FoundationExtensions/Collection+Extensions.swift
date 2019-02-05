@@ -28,3 +28,10 @@ public extension Collection where Element: Equatable {
 		return self.contains(element)
 	}
 }
+
+public extension Collection {
+	func first<T>(as type: T.Type = T.self, where predicate: (Element) throws -> Bool) rethrows -> T? {
+		let first = try self.first(where: predicate) as? T
+		return first
+	}
+}

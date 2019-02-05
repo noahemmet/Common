@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8609AB0E22091FA100A6D0FB /* CollectionExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8609AB0D22091FA100A6D0FB /* CollectionExtensionTests.swift */; };
 		860DCCCB20B67E7E006B8A4B /* HasNameAndSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860DCCCA20B67E7E006B8A4B /* HasNameAndSummary.swift */; };
 		8615916C211504CF00816651 /* TouchPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8615916B211504CE00816651 /* TouchPoint.swift */; };
 		8615916E211505A500816651 /* LineFragment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8615916D211505A400816651 /* LineFragment.swift */; };
@@ -70,6 +71,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8609AB0D22091FA100A6D0FB /* CollectionExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtensionTests.swift; sourceTree = "<group>"; };
 		860DCCCA20B67E7E006B8A4B /* HasNameAndSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasNameAndSummary.swift; sourceTree = "<group>"; };
 		8615916B211504CE00816651 /* TouchPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchPoint.swift; sourceTree = "<group>"; };
 		8615916D211505A400816651 /* LineFragment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineFragment.swift; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				869BDA79201E859800AB161E /* CommonTests.swift */,
+				8609AB0D22091FA100A6D0FB /* CollectionExtensionTests.swift */,
 				864A9E0B20FC692E006153D0 /* DataStoreTests.swift */,
 				866EE2F6217F10C1004A6E90 /* ColorTests.swift */,
 				869BDA7B201E859800AB161E /* Info.plist */,
@@ -473,6 +476,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				869BDA7A201E859800AB161E /* CommonTests.swift in Sources */,
+				8609AB0E22091FA100A6D0FB /* CollectionExtensionTests.swift in Sources */,
 				866EE2F8217F114B004A6E90 /* ColorTests.swift in Sources */,
 				864A9E0C20FC692E006153D0 /* DataStoreTests.swift in Sources */,
 			);

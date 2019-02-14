@@ -13,9 +13,10 @@ public enum UnwrapError<K>: Error {
     case badValue(Any, type: K)
 }
 
-public func unwrap<K>(_ closure: () throws -> K?) throws -> K {
+// The closure is at the end so as to get the trailing closure sugar.
+public func unwrap<K>(file: String = #file, line: Int = #line, function: String = #function, _ closure: () throws -> K?) throws -> K {
     guard let unwrapped = try closure() else {
-		throw ThrownError(UnwrapError.failed(type: K.self))
+		throw ThrownError(UnwrapError.failed(type: K.self), file: file, line: line, function: function)
 	}
 	return unwrapped
 }
@@ -28,9 +29,9 @@ public func unwrap<K>(orThrow error: Error, _ closure: () throws -> K?) throws -
 }
 
 public extension Optional {
-	func unwrap() throws -> Wrapped {
+	func unwrap(file: String = #file, line: Int = #line, function: String = #function) throws -> Wrapped {
 		guard let unwrapped = self else { 
-            throw ThrownError(UnwrapError.failed(type: self)) 
+            throw ThrownError(UnwrapError.failed(type: self), file: file, line: line, function: function)
         }
 		return unwrapped
 	}
@@ -42,9 +43,9 @@ public extension Optional {
         return unwrapped
     }
 	
-	func unwrap(orThrow reason: String) throws -> Wrapped {
+	func unwrap(file: String = #file, line: Int = #line, function: String = #function, orThrow reason: String) throws -> Wrapped {
 		guard let unwrapped = self else {
-			throw ThrownError(reason)
+			throw ThrownError(reason, file: file, line: line, function: function)
 		}
 		return unwrapped
 	}

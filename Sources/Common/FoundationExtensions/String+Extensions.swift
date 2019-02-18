@@ -55,6 +55,20 @@ public extension String {
 	var normalized: String {
 		return self.lowercased().replacingOccurrences(of: " ", with: "_")
 	}
+}
+
+// MARK: - Splitting
+
+public extension String {
+	
+	/// https://stackoverflow.com/a/31727051
+	func slice(from: String, to: String) -> String? {
+		return (range(of: from)?.upperBound).flatMap { substringFrom in
+			(range(of: to, range: substringFrom..<endIndex)?.lowerBound).map { substringTo in
+				String(self[substringFrom..<substringTo])
+			}
+		}
+	}
 	
 	func words() -> [String] {
 		let range = startIndex..<endIndex
@@ -85,6 +99,7 @@ public extension String {
 			}
 		}
 	}
+	
 	func words(splitBy delimiter: String) -> [WordSplitResult] {
 		let regex = try! NSRegularExpression(pattern: "#[a-z0-9]+", options: .caseInsensitive)
 		

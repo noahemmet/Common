@@ -68,6 +68,22 @@ public extension String {
 	enum WordSplitResult {
 		case match(String)
 		case between(String)
+		
+		public var asMatch: String? {
+			if case .match(let match) = self {
+				return match
+			} else {
+				return nil
+			}
+		}
+		
+		public var asBetween: String? {
+			if case .between(let between) = self {
+				return between
+			} else {
+				return nil
+			}
+		}
 	}
 	func words(splitBy delimiter: String) -> [WordSplitResult] {
 		let regex = try! NSRegularExpression(pattern: "#[a-z0-9]+", options: .caseInsensitive)

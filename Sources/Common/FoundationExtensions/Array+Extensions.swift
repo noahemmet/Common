@@ -104,8 +104,18 @@ public extension Array {
 		try copy.removeFirst(where: predicate)
 		return copy
 	}
+	
+	func keyed<Key: Hashable>(by closure: (Element) -> Key ) -> [Key: [Element]] {
+		return self.reduce([:]) { result, element in
+			var result = result
+			let key = closure(element)
+			result[key, default: []].append(element)
+			return result
+		}
+	}
 }
 
+// MARK: - Equatable
 
 public extension Array where Element: Equatable {
     mutating func appendUnique(_ element: Element) {
@@ -137,7 +147,7 @@ public extension Array where Element: Equatable {
     }
     
     mutating func remove(_ element: Element) {
-        guard let index = self.index(of: element) else {
+        guard let index = self.firstIndex(of: element) else {
             print("element not found")
             return
         }

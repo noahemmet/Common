@@ -90,6 +90,20 @@ public extension Array {
         let filtered: [Element] = indexes.map { self[$0] }
         return filtered
     }
+	
+	@discardableResult
+	mutating func removeFirst(where predicate: (Element) throws -> Bool) rethrows -> Element? {
+		guard let index = try self.firstIndex(where: predicate) else {
+			return nil
+		}
+		return remove(at: index)
+	}
+	
+	func removingFirst(where predicate: (Element) throws -> Bool) rethrows -> [Element] {
+		var copy = self
+		try copy.removeFirst(where: predicate)
+		return copy
+	}
 }
 
 

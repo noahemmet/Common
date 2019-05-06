@@ -66,7 +66,7 @@ extension Path.Element {
     public init(dictionary: [String: Any]) throws {
         let type = try (dictionary["type"] as? String).unwrap(orThrow: "Can't find \"type\" in dictionary: \(dictionary)")
 		self.type = try Path.ElementType(rawValue: type).unwrap()
-		let points = try (dictionary["points"] as? [[CGFloat]]).unwrap(orThrow: "Can't find \"points\" in dictionary: \(dictionary)")
+		let points = try (dictionary["points"] as? [[Double]]).unwrap(orThrow: "Can't find \"points\" in dictionary: \(dictionary)")
 		self.points = points.map { CGPoint(x: $0[0], y: $0[1]) }
     }
 }

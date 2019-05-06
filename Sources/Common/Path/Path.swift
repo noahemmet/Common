@@ -104,8 +104,8 @@ public struct Path: Codable, Hashable {
 
 extension Path {
     public init(data: Data) throws {
-		let obj = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions(rawValue: 0))
-		let arr = try (obj as? [[String: AnyObject]]).unwrap()
+		let obj = try JSONSerialization.jsonObject(with: data, options: [])
+		let arr = try (obj as? [[String: Any]]).unwrap()
 		self.elements = try arr.map { try Element(dictionary: $0) }
     }
     

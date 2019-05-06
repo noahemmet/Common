@@ -19,8 +19,8 @@ public extension Path {
     }
     
 	struct Element: Codable, Hashable {
-        public var type: ElementType = .invalid
-        public var points: [CGPoint] = []
+        public var type: ElementType
+        public var points: [CGPoint]
 		
 		public init(type: ElementType, points: [CGPoint]) {
 			self.type = type
@@ -64,9 +64,9 @@ public extension Path {
 
 extension Path.Element {
     public init(dictionary: [String: Any]) throws {
-        let type = try (dictionary["type"] as? String).unwrap()
+        let type = try (dictionary["type"] as? String).unwrap(orThrow: "Can't find \"type\" in dictionary: \(dictionary)")
 		self.type = try Path.ElementType(rawValue: type).unwrap()
-        let points = try (dictionary["points"] as? [[CGFloat]]).unwrap()
+		let points = try (dictionary["points"] as? [[CGFloat]]).unwrap(orThrow: "Can't find \"points\" in dictionary: \(dictionary)")
 		self.points = points.map { CGPoint(x: $0[0], y: $0[1]) }
     }
 }

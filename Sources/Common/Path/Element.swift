@@ -30,7 +30,7 @@ public extension Path {
         public func toDictionary() -> [String: Any] {
             return [
                 "type": type.rawValue,
-                "pts": points.map { return [$0.x, $0.y] }
+                "points": points.map { return [$0.x, $0.y] }
             ]
         }
         
@@ -63,16 +63,10 @@ public extension Path {
 }
 
 extension Path.Element {
-    public init(dictionary: [String: Any]) {
-        if let type = dictionary["type"] as? String {
-            if let ptype = Path.ElementType(rawValue: type) {
-                self.type = ptype
-            }
-        }
-        if let points = dictionary["pts"] as? [[CGFloat]] {
-            self.points = points.map({pt in
-                return CGPoint(x: pt[0], y: pt[1])
-            })
-        }
+    public init(dictionary: [String: Any]) throws {
+        let type = try (dictionary["type"] as? String).unwrap()
+		self.type = try Path.ElementType(rawValue: type).unwrap()
+        let points = try (dictionary["points"] as? [[CGFloat]]).unwrap()
+		self.points = points.map { CGPoint(x: $0[0], y: $0[1]) }
     }
 }

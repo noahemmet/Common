@@ -16,9 +16,7 @@ public struct Path: Codable, Hashable {
 	}
 	
     public func toJSONArray() -> [[String: Any]] {
-        return elements.map({el in
-            return el.toDictionary()
-        }) as [[String : Any]]
+        return elements.map { $0.toDictionary() }
     }
     
     public func toJSONData(options: JSONSerialization.WritingOptions) throws -> Data {
@@ -107,18 +105,11 @@ public struct Path: Codable, Hashable {
 extension Path {
     public init(data: Data) throws {
 		let obj = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions(rawValue: 0))
-		if let arr = obj as? [[String: AnyObject]] {
-			self.elements = arr.map({ el in
-				return Element(dictionary: el)
-			})
-		} else {
-			self.elements = []
-		}
+		let arr = try (obj as? [[String: AnyObject]]).unwrap()
+		self.elements = try arr.map { try Element(dictionary: $0) }
     }
     
-    public init(jsonArray: [[String: Any]]) {
-        self.elements = jsonArray.map({ el in
-            return Element(dictionary: el)
-        })
+    public init(jsonArray: [[String: Any]]) throws {
+		self.elements = try jsonArray.map { try Element(dictionary: $0) }
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 public extension Path {
-    public enum ElementType: String, Codable, Hashable, CaseIterable {
+	enum ElementType: String, Codable, Hashable, CaseIterable {
         case invalid
         case moveToPoint
         case addLineToPoint
@@ -18,7 +18,7 @@ public extension Path {
         case closeSubpath
     }
     
-    public struct Element: Codable, Hashable {
+	struct Element: Codable, Hashable {
         public var type: ElementType = .invalid
         public var points: [CGPoint] = []
 		

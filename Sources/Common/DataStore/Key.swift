@@ -13,7 +13,7 @@ public protocol Keyed {
 }
 
 public extension Array where Element: Keyed {
-    public func keyed() -> [Key: [Element]] {
+	func keyed() -> [Key: [Element]] {
         let dict: [Key: [Element]] = Dictionary(grouping: self) { element in
             return element.key
         }

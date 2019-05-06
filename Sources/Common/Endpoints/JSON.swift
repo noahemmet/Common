@@ -143,6 +143,14 @@ public extension JSONSerialization {
         let json = try JSON(anyJSON)
         return json
     }
+	
+	static func json(from string: String, options: JSONSerialization.ReadingOptions) throws -> JSON {
+		guard let data = string.data(using: .utf8) else {
+			throw JSON.Error.unknownType(string)
+		}
+		let json = try self.json(with: data, options: options)
+		return json
+	}
     
     static func data(withJSON json: JSON, options: JSONSerialization.WritingOptions = []) throws -> Data {
         switch json {
@@ -152,6 +160,11 @@ public extension JSONSerialization {
         case .object:
             let anyObject = try json.anyObject()
             return try self.data(withJSONObject: anyObject, options: options)
+		case .string(let string):
+			guard let data = string.data(using: .utf8) else {
+				throw JSON.Error.unknownType(string)
+			}
+			return data
         default:
             // This could handle other primitives too, like `String`.
             throw JSON.Error.unknownType(json)

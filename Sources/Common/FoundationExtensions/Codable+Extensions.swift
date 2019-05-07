@@ -28,3 +28,11 @@ public extension KeyedDecodingContainer {
         return value
     }
 }
+
+extension Decodable {
+	public static func from(_ data: Data) throws -> Self {
+		let jsonDecoder = JSONDecoder()
+		let object = try jsonDecoder.decode(self, from: data)
+		return object
+	}
+}

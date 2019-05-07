@@ -16,7 +16,6 @@
 		86341CE921995FE3005BE81A /* Ratio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86341CE821995FE3005BE81A /* Ratio.swift */; };
 		863491FD20EDFB8C005E45FF /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863491FC20EDFB8C005E45FF /* DataStore.swift */; };
 		8634922C20EF0EA5005E45FF /* UniqueIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8634922B20EF0EA5005E45FF /* UniqueIdentifiable.swift */; };
-		863AB62821B90F3F00672B9A /* Path+CatmullRom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863AB62721B90F3F00672B9A /* Path+CatmullRom.swift */; };
 		864A9DC620FAAC4B006153D0 /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A9DC520FAAC4B006153D0 /* Identifier.swift */; };
 		864A9DCD20FAF631006153D0 /* ModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A9DCC20FAF631006153D0 /* ModelFactory.swift */; };
 		864A9E0C20FC692E006153D0 /* DataStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864A9E0B20FC692E006153D0 /* DataStoreTests.swift */; };
@@ -32,9 +31,6 @@
 		866EE2F8217F114B004A6E90 /* ColorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866EE2F6217F10C1004A6E90 /* ColorTests.swift */; };
 		86701C9A220ACFD2005BED57 /* KeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86701C99220ACFD2005BED57 /* KeyTests.swift */; };
 		86767DAB21A8B35A00C21FE2 /* RawRepresentable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86767DAA21A8B35A00C21FE2 /* RawRepresentable+Extensions.swift */; };
-		867D568D2166CAAC0005DF3E /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867D568A2166CAAB0005DF3E /* Element.swift */; };
-		867D568E2166CAAC0005DF3E /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867D568B2166CAAB0005DF3E /* Path.swift */; };
-		867D568F2166CAAC0005DF3E /* Pathology.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867D568C2166CAAB0005DF3E /* Pathology.swift */; };
 		86879FED20B53FBE0056DBD9 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86879FEC20B53FBE0056DBD9 /* Result.swift */; };
 		868A3F2E211261E700515764 /* EndpointResponding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868A3F2D211261E700515764 /* EndpointResponding.swift */; };
 		869BDA75201E859800AB161E /* Common.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 869BDA6B201E859800AB161E /* Common.framework */; };
@@ -81,7 +77,6 @@
 		86341CE821995FE3005BE81A /* Ratio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ratio.swift; sourceTree = "<group>"; };
 		863491FC20EDFB8C005E45FF /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		8634922B20EF0EA5005E45FF /* UniqueIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniqueIdentifiable.swift; sourceTree = "<group>"; };
-		863AB62721B90F3F00672B9A /* Path+CatmullRom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Path+CatmullRom.swift"; sourceTree = "<group>"; };
 		864A9DC520FAAC4B006153D0 /* Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
 		864A9DCC20FAF631006153D0 /* ModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelFactory.swift; sourceTree = "<group>"; };
 		864A9E0B20FC692E006153D0 /* DataStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStoreTests.swift; sourceTree = "<group>"; };
@@ -98,9 +93,6 @@
 		866EE2F6217F10C1004A6E90 /* ColorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTests.swift; sourceTree = "<group>"; };
 		86701C99220ACFD2005BED57 /* KeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyTests.swift; sourceTree = "<group>"; };
 		86767DAA21A8B35A00C21FE2 /* RawRepresentable+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RawRepresentable+Extensions.swift"; sourceTree = "<group>"; };
-		867D568A2166CAAB0005DF3E /* Element.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
-		867D568B2166CAAB0005DF3E /* Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
-		867D568C2166CAAB0005DF3E /* Pathology.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pathology.swift; sourceTree = "<group>"; };
 		86879FEC20B53FBE0056DBD9 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		868A3F2D211261E700515764 /* EndpointResponding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointResponding.swift; sourceTree = "<group>"; };
 		869BDA6B201E859800AB161E /* Common.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Common.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -212,22 +204,10 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		867D56892166CAAB0005DF3E /* Path */ = {
-			isa = PBXGroup;
-			children = (
-				867D568A2166CAAB0005DF3E /* Element.swift */,
-				867D568B2166CAAB0005DF3E /* Path.swift */,
-				863AB62721B90F3F00672B9A /* Path+CatmullRom.swift */,
-				867D568C2166CAAB0005DF3E /* Pathology.swift */,
-			);
-			path = Path;
-			sourceTree = "<group>";
-		};
 		867D79CE2113D80500E3C373 /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				869BDA6E201E859800AB161E /* Common.h */,
-				867D56892166CAAB0005DF3E /* Path */,
 				8664579A210BA5D300D4952C /* Networking */,
 				864A9DC720FAAC53006153D0 /* DataStore */,
 				860DCCC920B67E66006B8A4B /* Protocols */,
@@ -443,14 +423,12 @@
 				869EB62420FE5D8E002345F1 /* Either.swift in Sources */,
 				86A724682113D846001D4F87 /* URLSession+Extensions.swift in Sources */,
 				86F925ED21B4FFA700F4FCD3 /* Range+Extensions.swift in Sources */,
-				867D568E2166CAAC0005DF3E /* Path.swift in Sources */,
 				8661353120F3D1D400A7B228 /* DataProviding.swift in Sources */,
 				8664579C210BA5DC00D4952C /* HTTPMethod.swift in Sources */,
 				868A3F2E211261E700515764 /* EndpointResponding.swift in Sources */,
 				86A724672113D846001D4F87 /* Bool+Extensions.swift in Sources */,
 				86A724692113D846001D4F87 /* Codable+Extensions.swift in Sources */,
 				86A724652113D846001D4F87 /* Array+Extensions.swift in Sources */,
-				867D568F2166CAAC0005DF3E /* Pathology.swift in Sources */,
 				86F925EB21B4FF2B00F4FCD3 /* Collection+Extensions.swift in Sources */,
 				86A7246B2113D846001D4F87 /* Optional+Extensions.swift in Sources */,
 				862EF78220EB3C39002B75C9 /* Closures.swift in Sources */,
@@ -461,11 +439,9 @@
 				86341CE921995FE3005BE81A /* Ratio.swift in Sources */,
 				8615916E211505A500816651 /* LineFragment.swift in Sources */,
 				86F828C8208408C90081078E /* NodeList.swift in Sources */,
-				863AB62821B90F3F00672B9A /* Path+CatmullRom.swift in Sources */,
 				86879FED20B53FBE0056DBD9 /* Result.swift in Sources */,
 				86767DAB21A8B35A00C21FE2 /* RawRepresentable+Extensions.swift in Sources */,
 				8634922C20EF0EA5005E45FF /* UniqueIdentifiable.swift in Sources */,
-				867D568D2166CAAC0005DF3E /* Element.swift in Sources */,
 				8664579E210C01F300D4952C /* Environment.swift in Sources */,
 				86F5A4AB21093F2E00D57F73 /* EndpointResponse.swift in Sources */,
 				8664575C210B056A00D4952C /* EndpointClient.swift in Sources */,

@@ -67,8 +67,18 @@ extension Path.Element {
 		let type = try (dictionary["type"] as? String).unwrap(orThrow: "Can't find \"type\" in dictionary: \(dictionary)")
 		self.type = try Path.ElementType(rawValue: type).unwrap()
 		let pointJSONs = try (dictionary["points"] as? [[Any]]).unwrap(orThrow: "no points key")
-		let firstPoint = pointJSONs[0][0]
-		let points = try (pointJSONs as? [[CGFloat]]).unwrap(orThrow: "Points are of type: \(firstPoint.self)")
-		self.points = points.map { CGPoint(x: $0[0], y: $0[1]) }
+		let numberedPoints: [[CGFloat]] = try pointJSONs.map { pointJSON in
+			return try pointJSON.map { point in
+				if let int = point as? Int {
+					return CGFloat(int)
+				} else if let double = point as? Double {
+					return CGFloat(double)
+				} else {
+					throw ThrownError("invalid point: \(point)")
+				}
+			}
+		}
+//		let points = try (pointJSONs as? [[CGFloat]]).unwrap(orThrow: "Points are of type: \(firstPoint.self)")
+		self.points = numberedPoints.map { CGPoint(x: $0[0], y: $0[1]) }
     }
 }

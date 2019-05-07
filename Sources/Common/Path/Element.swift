@@ -64,9 +64,11 @@ public extension Path {
 
 extension Path.Element {
     public init(dictionary: [String: Any]) throws {
-        let type = try (dictionary["type"] as? String).unwrap(orThrow: "Can't find \"type\" in dictionary: \(dictionary)")
+		let type = try (dictionary["type"] as? String).unwrap(orThrow: "Can't find \"type\" in dictionary: \(dictionary)")
 		self.type = try Path.ElementType(rawValue: type).unwrap()
-		let points = try (dictionary["points"] as? [[Double]]).unwrap(orThrow: "Can't find \"points\" in dictionary: \(dictionary)")
+		let pointJSONs = try (dictionary["points"] as? [[Any]]).unwrap(orThrow: "no points key")
+		let firstPoint = pointJSONs[0][0]
+		let points = try (pointJSONs as? [[CGFloat]]).unwrap(orThrow: "Points are of type: \(firstPoint.self)")
 		self.points = points.map { CGPoint(x: $0[0], y: $0[1]) }
     }
 }

@@ -68,13 +68,17 @@ extension Path.Element {
 		self.type = try Path.ElementType(rawValue: type).unwrap()
 		let pointJSONs = try (dictionary["points"] as? [[Any]]).unwrap(orThrow: "no points key")
 		let numberedPoints: [[CGFloat]] = try pointJSONs.map { pointJSON in
-			return try pointJSON.map { point in
-				if let int = point as? Int {
+			return try pointJSON.map { x in
+				if let int = x as? Int {
 					return CGFloat(int)
-				} else if let double = point as? Double {
+				} else if let double = x as? Double {
 					return CGFloat(double)
+				} else if let float = x as? Float {
+					return CGFloat(float)
+				} else if let float = x as? CGFloat {
+					return float
 				} else {
-					throw ThrownError("invalid point: \(point)")
+					throw ThrownError("invalid point: \(x)")
 				}
 			}
 		}

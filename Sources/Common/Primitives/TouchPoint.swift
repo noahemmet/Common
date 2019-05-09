@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreGraphics
 
 public struct TouchPoint: Equatable {
 	public var center: CGPoint

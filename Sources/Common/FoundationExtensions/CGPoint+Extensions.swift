@@ -1,6 +1,7 @@
 // Via https://github.com/andrelind/swift-catmullrom
 
 import Foundation
+import CoreGraphics
 
 // MARK: - Translations
 

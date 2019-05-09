@@ -9,7 +9,7 @@
 import Foundation
 
 public extension CGSize {
-    init(dimension: CGFloat) {
+	init(dimension: CGFloat) {
         self.init(width: dimension, height: dimension)
     }
     
@@ -20,7 +20,15 @@ public extension CGSize {
     func scaled(by scale: CGFloat) -> CGSize {
         return CGSize(width: width * scale, height: height * scale)
     }
-    
+	
+	func inset(by inset: CGFloat) -> CGSize {
+		return CGSize(width: width - inset, height: height - inset)
+	}
+	
+	func inset(width widthInset: CGFloat, height heightInset: CGFloat) -> CGSize {
+		return CGSize(width: widthInset, height: heightInset)
+	}
+	
     var minDimension: CGSize {
         return CGSize(dimension: min(width, height))
     }

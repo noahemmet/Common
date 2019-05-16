@@ -7,7 +7,9 @@
 //
 
 import Foundation
+#if canImport(CoreGraphics)
 import CoreGraphics
+#endif
 
 public struct Ratio: Codable, Hashable {
     

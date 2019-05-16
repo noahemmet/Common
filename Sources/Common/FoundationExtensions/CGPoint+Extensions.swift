@@ -1,7 +1,9 @@
 // Via https://github.com/andrelind/swift-catmullrom
 
 import Foundation
+#if canImport(CoreGraphics)
 import CoreGraphics
+#endif
 
 // MARK: - Translations
 

@@ -7,7 +7,9 @@
 //
 
 import Foundation
+#if canImport(CoreGraphics)
 import CoreGraphics
+#endif
 
 public extension CGFloat {
     func random(within delta: CGFloat) -> CGFloat {

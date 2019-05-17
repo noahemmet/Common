@@ -30,6 +30,11 @@ public extension KeyedDecodingContainer {
 }
 
 extension Decodable {
+	public static func from(_ string: String) throws -> Self {
+		let data = try JSONSerialization.data(withJSON: .string(string))
+		return try self.from(data)
+	}
+	
 	public static func from(_ data: Data) throws -> Self {
 		let jsonDecoder = JSONDecoder()
 		let object = try jsonDecoder.decode(self, from: data)

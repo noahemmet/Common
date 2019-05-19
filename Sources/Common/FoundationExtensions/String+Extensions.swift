@@ -22,6 +22,13 @@ public extension String {
 		return newString
 	}
 	
+	func droppingAfter(_ match: String) -> String {
+		guard let index = range(of: match)?.upperBound else {
+			return self
+		}
+		return String(prefix(upTo: index))
+	}
+	
 	func prepending(_ prefix: String) -> String {
 		return prefix + self
 	}

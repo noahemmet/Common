@@ -148,7 +148,6 @@ public extension Array where Element: Equatable {
 	
 	mutating func remove(_ element: Element) {
 		guard let index = self.firstIndex(of: element) else {
-			print("element not found: \(element)")
 			return
 		}
 		self.remove(at: index)

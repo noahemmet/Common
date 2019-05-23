@@ -62,6 +62,11 @@ public extension String {
 	var normalized: String {
 		return self.lowercased().replacingOccurrences(of: " ", with: "_")
 	}
+	
+	static func random(length: Int, allowedChars: String = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789") -> String {
+		let string = String((0..<length).map{ _ in allowedChars.randomElement()! })
+		return string
+	}
 }
 
 // MARK: - Splitting

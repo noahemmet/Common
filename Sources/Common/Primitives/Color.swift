@@ -153,17 +153,3 @@ extension Color: ExpressibleByStringLiteral {
     }
     
 }
-
-#if canImport(UIKit) 
-//public extension UIColor {
-//    var color: Color {
-//        return Color(self)
-//    }
-//}
-
-//public extension CGColor {
-//    var color: Color {
-//        return Color(UIColor(cgColor: self))
-//    }
-//}
-#endif

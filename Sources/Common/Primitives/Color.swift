@@ -161,9 +161,9 @@ extension Color: ExpressibleByStringLiteral {
 //    }
 //}
 
-public extension CGColor {
-    var color: Color {
-        return Color(UIColor(cgColor: self))
-    }
-}
+//public extension CGColor {
+//    var color: Color {
+//        return Color(UIColor(cgColor: self))
+//    }
+//}
 #endif

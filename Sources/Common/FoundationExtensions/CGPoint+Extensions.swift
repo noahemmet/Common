@@ -81,3 +81,21 @@ extension CGPoint: Hashable {
         hasher.combine(y)
     }
 }
+
+extension Array where Element == CGPoint {
+	public var boundingBox: CGRect {
+		guard !isEmpty else { return .zero }
+		let xs = self.map { $0.x }
+		let minX = xs.min()!
+		let maxX = xs.max()!
+		let width = maxX - minX
+		
+		let ys = self.map { $0.y }
+		let minY = ys.min()!
+		let maxY = ys.max()!
+		let height = maxY - minY
+		
+		let box = CGRect(x: minX, y: minY, width: width, height: height)
+		return box
+	}
+}

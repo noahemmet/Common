@@ -32,3 +32,10 @@ public extension CGRect {
         self.init(origin: .zero, size: size)
     }
 }
+
+extension CGRect: Hashable {
+	public func hash(into hasher: inout Hasher) {
+		hasher.combine(origin)
+		hasher.combine(size)
+	}
+}

@@ -165,4 +165,22 @@ public extension Array where Element: Equatable {
 			self.remove(element)
 		}
 	}
+	
+	func containsAny(_ elements: [Element]) -> Bool {
+		for element in elements {
+			if self.contains(element) {
+				return true
+			}
+		}
+		return false
+	}
+	
+	func containsAll(_ elements: [Element]) -> Bool {
+		for element in elements {
+			if self.contains(element) == false {
+				return false
+			}
+		}
+		return true
+	}
 }

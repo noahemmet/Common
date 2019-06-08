@@ -27,6 +27,24 @@ public extension Collection where Element: Equatable {
 		}
 		return self.contains(element)
 	}
+	
+	func containsAny(_ elements: [Element]) -> Bool {
+		for element in elements {
+			if self.contains(element) {
+				return true
+			}
+		}
+		return false
+	}
+	
+	func containsAll(_ elements: [Element]) -> Bool {
+		for element in elements {
+			if self.contains(element) == false {
+				return false
+			}
+		}
+		return true
+	}
 }
 
 public extension Collection {

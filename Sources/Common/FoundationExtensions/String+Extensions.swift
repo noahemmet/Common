@@ -10,9 +10,8 @@ import Foundation
 
 public extension String {
 	func droppingPrefix(_ prefix: String) -> String {
-		guard hasPrefix(prefix) else { return self }
-		let newString = self.dropFirst(prefix.count)
-		return String(newString)
+		guard self.hasPrefix(prefix) else { return self }
+		return String(self.dropFirst(prefix.count))
 	}
 	
 	func droppingUntil(_ match: String) -> String {

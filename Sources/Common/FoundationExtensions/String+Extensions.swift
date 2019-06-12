@@ -81,6 +81,16 @@ public extension String {
 		}
 	}
 	
+	func sliceAll(from: String, to: String) -> [String] {
+		var copy = self
+		var slices: [String] = []
+		while let sliced = copy.slice(from: from, to: to) {
+			slices.append(sliced)
+			copy = copy.droppingPrefix(sliced)
+		}
+		return slices
+	}
+	
 	func words() -> [String] {
 		let range = startIndex..<endIndex
 		var words: [String] = []

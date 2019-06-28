@@ -60,3 +60,11 @@ extension Key: Codable {
     }
 
 }
+
+extension Collection where Element == Keyed {
+	
+	public func from(_ keys: [Key]) -> [Element] {
+		let elements = self.filter { keys.contains($0.key) }
+		return elements
+	}
+}

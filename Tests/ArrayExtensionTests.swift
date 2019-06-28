@@ -14,4 +14,10 @@ class ArrayExtensionTests: XCTestCase {
 		let dropped = array.randomized(keep: 2)
 		XCTAssertEqual(dropped.count, 2)
 	}
+	
+	func testDropRandomClamping() {
+		let array = [1, 2]
+		let dropped = array.randomized(keep: 3)
+		XCTAssertEqual(dropped.count, 2)
+	}
 }

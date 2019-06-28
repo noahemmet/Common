@@ -25,11 +25,11 @@ public struct Key: ExpressibleByStringLiteral, RawRepresentable, Hashable {
     public let rawValue: String
     
     public init(rawValue: String) {
-        self.rawValue = rawValue
+        self.rawValue = rawValue.normalized
     }
     
     public init(_ rawValue: String) {
-        self.rawValue = rawValue
+		self.init(rawValue: rawValue)
     }
     
     public init(keys: [Key]) {

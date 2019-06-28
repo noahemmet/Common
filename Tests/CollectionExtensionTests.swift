@@ -1,11 +1,3 @@
-//
-//  CollectionExtensionTests.swift
-//  CommonTests
-//
-//  Created by Noah Emmet on 2/4/19.
-//  Copyright © 2019 Sticks. All rights reserved.
-//
-
 import XCTest
 import Common
 

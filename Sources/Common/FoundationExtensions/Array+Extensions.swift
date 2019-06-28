@@ -18,7 +18,7 @@ public extension Array {
 	}
 	
 	mutating func removeRandom(keep: Int) {
-		for _ in (0...keep) {
+		for _ in (0...count-keep-1) {
 			let _ = self.dropRandom()
 		}
 	}

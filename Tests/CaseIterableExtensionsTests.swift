@@ -19,4 +19,13 @@ class CaseIterableExtensionTests: XCTestCase {
 			XCTAssertEqual(b, Foo.baz)
 		}
 	}
+	
+	func testNext() {
+		enum Foo: String, CaseIterable { case one, two }
+		let one = Foo.one
+		let two = one.next
+		XCTAssertEqual(two, Foo.two)
+		let oneAgain = two.next
+		XCTAssertEqual(oneAgain, Foo.one)
+	}
 }

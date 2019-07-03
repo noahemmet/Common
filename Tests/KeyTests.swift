@@ -31,4 +31,14 @@ class KeyTests: XCTestCase {
         let key5 = Key(rawValue: "lower lower")
         XCTAssertEqual(key5.rawValue, "lowerLower")
     }
+	
+	func testKeyedCollection() {
+		struct Foo: Keyed, Equatable {
+			var key: Key
+		}
+		let arr: [Foo] = [Foo(key: "1"), Foo(key: "2"), Foo(key: "3")]
+		let keys: [Key] = ["1", "3"]
+		let filtered: [Foo] = arr.from(keys)
+		XCTAssertEqual(filtered, [Foo(key: "1"), Foo(key: "3")])
+	}
 }

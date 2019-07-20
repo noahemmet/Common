@@ -43,6 +43,16 @@ public extension String {
         }
         return ranges
     }
+
+	// https://stackoverflow.com/a/47220964
+	func replacing<Result>(_ strings: [String], options: CompareOptions = [], locale: Locale? = nil, with handler: (String, [Range<Index>]) -> Result) -> [Result] {
+		let rangesBySubstring = strings.flatMap { [$0: self.ranges(of: $0)] }
+		let results: [Result] = rangesBySubstring.map { (arg) -> Result in
+			let (match, ranges) = arg
+			return handler(match, ranges)
+		}
+		return results
+    }
 	
 	func prepending(_ prefix: String) -> String {
 		return prefix + self

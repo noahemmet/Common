@@ -21,7 +21,7 @@ class ColorTests: XCTestCase {
     }
     
     func testColors() throws {
-        let color = try Color(hex: "DDEDDE")
+		XCTAssertNoThrow(try Color(hex: "DDEDDE"))
 //        let uiColor = color.uiColor
 //        assert(color == uiColor.color.uiColor.color)
     }

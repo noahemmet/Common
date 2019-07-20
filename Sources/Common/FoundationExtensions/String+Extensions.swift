@@ -43,13 +43,32 @@ public extension String {
         }
         return ranges
     }
+	
+	func strings(for ranges: [Range<Index>]) -> [(String, Range<Index>)] {
+		var allRanges = ranges
+		if let firstRange = ranges.first, firstRange.lowerBound != self.startIndex {
+			// The ranges do not include the first index; add a new range
+			let startRange: Range<Index> = self.startIndex ..< firstRange.lowerBound
+			allRanges.insert(startRange, at: 0)
+		}
+		if let lastRange = ranges.last, lastRange.upperBound != self.endIndex {
+			// The ranges do not include the last index; add a new range
+			let endRange: Range<Index> = lastRange.upperBound ..< self.endIndex 
+			allRanges.append(endRange)
+		}
+		let stringsByRange: [(String, Range<Index>)] = allRanges.map { range in
+			let string = self[range]
+			return (String(string), range)
+		}
+		return stringsByRange
+	}
 
 	// https://stackoverflow.com/a/47220964
-	func replacing<Result>(_ strings: [String], options: CompareOptions = [], locale: Locale? = nil, with handler: (String, [Range<Index>]) -> Result) -> [Result] {
+	func replacing<Result>(_ strings: [String], options: CompareOptions = [], locale: Locale? = nil, with handler: (String, [Range<Index>]) throws -> Result) rethrows -> [Result] {
 		let rangesBySubstring = strings.flatMap { [$0: self.ranges(of: $0)] }
-		let results: [Result] = rangesBySubstring.map { (arg) -> Result in
+		let results: [Result] = try rangesBySubstring.map { (arg) -> Result in
 			let (match, ranges) = arg
-			return handler(match, ranges)
+			return try handler(match, ranges)
 		}
 		return results
     }

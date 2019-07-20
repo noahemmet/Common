@@ -14,6 +14,11 @@ public extension String {
 		return String(self.dropFirst(prefix.count))
 	}
 	
+	func droppingSuffix(_ suffix: String) -> String {
+		guard hasSuffix(suffix) else { return self }
+		return String(self.dropLast(suffix.count))
+	}
+	
 	func droppingUntil(_ match: String) -> String {
 		guard let range = self.range(of: match) else { return self }
 		var newString = self

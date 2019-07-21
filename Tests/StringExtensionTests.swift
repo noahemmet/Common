@@ -24,5 +24,12 @@ class StringExtensionTests: XCTestCase {
 		}
 		XCTAssertEqual(replaced, [1, 2, 34])
 	}
+
+	
+	func testTokenize() throws {
+		let string = "one, two, three, four."
+		let m = string.tokenize(by: .punctuationCharacters)
+		print(m)
+	}
 	
 }

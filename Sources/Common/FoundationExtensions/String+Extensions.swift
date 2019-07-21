@@ -73,6 +73,30 @@ public extension String {
 		return results
     }
 	
+    func tokenize(by characterSet: CharacterSet) -> [String] {
+		var result: [String] = []
+        var pos = startIndex
+        while let range = rangeOfCharacter(from: characterSet, range: pos..<endIndex) {
+            // Append string preceding the split mark:
+            if range.lowerBound != pos {
+				let string = self[pos..<range.lowerBound]
+				result.append(String(string))
+            }
+            // Append split mark:
+			let string = self[range]
+            result.append(String(string))
+            // Update position for next search:
+            pos = range.upperBound
+        }
+        // Append string following the last split mark:
+        if pos != endIndex {
+			let string = self[pos..<endIndex]
+			result.append(String(string))
+        }
+        return result
+    }
+
+	
 	func prepending(_ prefix: String) -> String {
 		return prefix + self
 	}

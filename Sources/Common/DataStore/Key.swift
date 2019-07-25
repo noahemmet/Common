@@ -44,6 +44,16 @@ public struct Key: ExpressibleByStringLiteral, RawRepresentable, Hashable {
         let rawValues = self.rawValue.components(separatedBy: "+")
         return rawValues.map { Key(rawValue: $0) }
     }
+	
+	public mutating func makeUnique(length: Int = 8) {
+		self = Key(rawValue + "-" + String.random(length: length))
+	}
+	
+	public func uniquing(length: Int = 8) -> Key {
+		var key = self
+		key.makeUnique()
+		return key
+	}
 }
 
 extension Key: Codable {

@@ -12,4 +12,12 @@ public extension Bool {
     var intValue: Int {
         return self ? 1 : 0
     }
+	
+	mutating func setTrue() {
+		self = true
+	}
+	
+	mutating func setFalse() {
+		self = false
+	}
 }

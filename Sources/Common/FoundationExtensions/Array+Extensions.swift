@@ -53,6 +53,12 @@ public extension Array {
 		return element
 	}
 	
+	func allExcept(at index: Int) -> [Element] {
+		var copy = self
+		copy.remove(at: index)
+		return copy
+	}
+	
 	func prepending(_ element: Element) -> [Element] {
 		var mutatingArray = self
 		mutatingArray.insert(element, at: 0)

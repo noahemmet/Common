@@ -11,7 +11,7 @@ import Foundation
 public struct GKey<Item>: Hashable {
 	public var key: Key
 	
-	public init(rawValue: String) {
+	public init(_ rawValue: String) {
 		key = Key(rawValue)
 	}
 	
@@ -20,7 +20,7 @@ public struct GKey<Item>: Hashable {
 	}
 	
 	public init(stringLiteral: String) {
-		self.init(rawValue: stringLiteral)
+		self.init(stringLiteral)
 	}
 	
 }

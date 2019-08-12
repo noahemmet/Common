@@ -12,7 +12,7 @@ public protocol GKeyed {
 }
 
 /// A key that's generic over an item.
-public struct GKey<Item>: Hashable, ExpressibleByStringLiteral {
+public struct GKey<Item: GKeyed>: Hashable, ExpressibleByStringLiteral {
 	public var key: Key
 	public static var itemType: Item.Type { return Item.self }
 	

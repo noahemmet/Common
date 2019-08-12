@@ -7,9 +7,14 @@
 
 import Foundation
 
+public protocol GKeyed {
+	var key: GKey<Self> { get }
+}
+
 /// A key that's generic over an item.
 public struct GKey<Item>: Hashable, ExpressibleByStringLiteral {
 	public var key: Key
+	public static var itemType: Item.Type { return Item.self }
 	
 	public init(_ rawValue: String) {
 		key = Key(rawValue)
@@ -22,7 +27,6 @@ public struct GKey<Item>: Hashable, ExpressibleByStringLiteral {
 	public init(stringLiteral: String) {
 		self.init(stringLiteral)
 	}
-	
 }
 
 extension GKey: Codable {
@@ -38,4 +42,10 @@ extension GKey: Codable {
 		try container.encode(key)
 	}
 	
+}
+
+extension Collection where Element: GKeyed {
+	public func filter(with keys: [GKey<Element>]) -> [Element] {
+		return self.filter { keys.contains($0.key) }
+	}
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 /// A key that's generic over an item.
-public struct GKey<Item>: Hashable {
+public struct GKey<Item>: Hashable, ExpressibleByStringLiteral {
 	public var key: Key
 	
 	public init(_ rawValue: String) {

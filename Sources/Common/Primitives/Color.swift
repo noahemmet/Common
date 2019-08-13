@@ -63,7 +63,6 @@ public struct Color: Codable, Hashable {
         self.init(red: red, green: green, blue: blue, alpha: 1)
     }
 
-    
     public static func random(includeAlpha: Bool = false) -> Color {
         let red = Double.random(in: 0..<1)
         let green = Double.random(in: 0..<1)
@@ -147,9 +146,13 @@ public extension Color {
 }
 
 extension Color: ExpressibleByStringLiteral {
-    
     public init(stringLiteral: String) {
         try! self.init(hex: stringLiteral)
     }
-    
+}
+
+extension Color: CustomStringConvertible {
+	public var description: String { 
+		return hexRGB
+	}
 }

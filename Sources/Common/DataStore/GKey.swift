@@ -7,9 +7,31 @@
 
 import Foundation
 
+// MARK: - GKeyed
+
 public protocol GKeyed {
-	var key: GKey<Self> { get }
+	var key: GKey<Self> { get set }
 }
+
+public extension Collection where Element: GKeyed {
+	
+	func uniqued(appendixLength: Int = 8) -> [Element] {
+		let keys = map { $0.key }
+		/// Add some random string junk to the end of every non-unique key
+		let uniquelyKeyedElements: [Element] = map { element in 
+			let existingElementKeyCount = keys.filter { $0 == element.key }.count
+			if existingElementKeyCount > 1 {
+				// Non-unique; add unique string.
+				var new = element
+				new.key = GKey(new.key.key.rawValue + String.random(length: appendixLength))
+				return new
+			}
+			return element
+		}
+		return uniquelyKeyedElements
+	}
+}
+
 
 /// A key that's generic over an item.
 public struct GKey<Item: GKeyed>: Hashable, ExpressibleByStringLiteral {

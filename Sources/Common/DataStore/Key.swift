@@ -8,18 +8,38 @@
 
 import Foundation
 
+// MARK: - Keyed
+
 public protocol Keyed {
-    var key: Key { get }
+    var key: Key { get set }
 }
 
-public extension Array where Element: Keyed {
+public extension Collection where Element: Keyed {
 	func keyed() -> [Key: [Element]] {
         let dict: [Key: [Element]] = Dictionary(grouping: self) { element in
             return element.key
         }
         return dict
     }
+	
+	func uniqued(appendixLength: Int = 8) -> [Element] {
+		let keys = map { $0.key }
+		/// Add some random string junk to the end of every non-unique key
+		let uniquelyKeyedElements: [Element] = map { element in 
+			let existingElementKeyCount = keys.filter { $0 == element.key }.count
+			if existingElementKeyCount > 1 {
+				// Non-unique; add unique string.
+				var new = element
+				new.key = Key(new.key.rawValue + String.random(length: appendixLength))
+				return new
+			}
+			return element
+		}
+		return uniquelyKeyedElements
+	}
 }
+
+// MARK: - Key
 
 public struct Key: ExpressibleByStringLiteral, RawRepresentable, Hashable {
     public let rawValue: String

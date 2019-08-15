@@ -15,7 +15,8 @@ public protocol GKeyed {
 
 public extension Collection where Element: GKeyed {
 	
-	func uniqued(appendixLength: Int = 8) -> [Element] {
+	/// Returns an array of the same element, but with unique keys if necessary
+	func uniquedKeys(appendixLength: Int = 8) -> [Element] {
 		let keys = map { $0.key }
 		/// Add some random string junk to the end of every non-unique key
 		let uniquelyKeyedElements: [Element] = map { element in 

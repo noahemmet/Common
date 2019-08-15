@@ -11,18 +11,19 @@ import Foundation
 // MARK: - Keyed
 
 public protocol Keyed {
-    var key: Key { get set }
+	var key: Key { get set }
 }
 
 public extension Collection where Element: Keyed {
 	func keyed() -> [Key: [Element]] {
-        let dict: [Key: [Element]] = Dictionary(grouping: self) { element in
-            return element.key
-        }
-        return dict
-    }
+		let dict: [Key: [Element]] = Dictionary(grouping: self) { element in
+			return element.key
+		}
+		return dict
+	}
 	
-	func uniqued(appendixLength: Int = 8) -> [Element] {
+	/// Returns an array of the same element, but with unique keys if necessary
+	func uniquedKeys(appendixLength: Int = 8) -> [Element] {
 		let keys = map { $0.key }
 		/// Add some random string junk to the end of every non-unique key
 		let uniquelyKeyedElements: [Element] = map { element in 
@@ -42,28 +43,28 @@ public extension Collection where Element: Keyed {
 // MARK: - Key
 
 public struct Key: ExpressibleByStringLiteral, RawRepresentable, Hashable {
-    public let rawValue: String
-    
-    public init(rawValue: String) {
-        self.rawValue = rawValue.camelCased
-    }
-    
-    public init(_ rawValue: String) {
+	public let rawValue: String
+	
+	public init(rawValue: String) {
+		self.rawValue = rawValue.camelCased
+	}
+	
+	public init(_ rawValue: String) {
 		self.init(rawValue: rawValue)
-    }
-    
-    public init(keys: [Key]) {
-        self.rawValue = keys.map { $0.rawValue }.joined(separator: "+")
-    }
-    
-    public init(stringLiteral: String) {
-        self.init(rawValue: stringLiteral)
-    }
-    
-    public var subkeys: [Key] {
-        let rawValues = self.rawValue.components(separatedBy: "+")
-        return rawValues.map { Key(rawValue: $0) }
-    }
+	}
+	
+	public init(keys: [Key]) {
+		self.rawValue = keys.map { $0.rawValue }.joined(separator: "+")
+	}
+	
+	public init(stringLiteral: String) {
+		self.init(rawValue: stringLiteral)
+	}
+	
+	public var subkeys: [Key] {
+		let rawValues = self.rawValue.components(separatedBy: "+")
+		return rawValues.map { Key(rawValue: $0) }
+	}
 	
 	public mutating func makeUnique(length: Int = 8) {
 		self = Key(rawValue + "-" + String.random(length: length))
@@ -77,18 +78,18 @@ public struct Key: ExpressibleByStringLiteral, RawRepresentable, Hashable {
 }
 
 extension Key: Codable {
-    
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        let rawValue = try container.decode(String.self)
-        self.init(rawValue)
-    }
-    
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encode(rawValue)
-    }
-
+	
+	public init(from decoder: Decoder) throws {
+		let container = try decoder.singleValueContainer()
+		let rawValue = try container.decode(String.self)
+		self.init(rawValue)
+	}
+	
+	public func encode(to encoder: Encoder) throws {
+		var container = encoder.singleValueContainer()
+		try container.encode(rawValue)
+	}
+	
 }
 
 extension Collection where Element: Keyed {

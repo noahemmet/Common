@@ -96,35 +96,67 @@ public extension String {
 		return result
 	}
 	
-	func tokenize(prefix: String, until suffix: CharacterSet) -> [String] {
-		var result: [String] = []
+	enum TokenizeResult {
+		case token(String)
+		case text(String)
+		
+		public var asToken: String? {
+			if case .token(let token) = self {
+				return token
+			} else {
+				return nil
+			}
+		}
+		
+		public var asText: String? {
+			if case .text(let text) = self {
+				return text
+			} else {
+				return nil
+			}
+		}
+	}
+	func tokenize(prefix: String, until suffix: CharacterSet) -> [TokenizeResult] {
+		var result: [TokenizeResult] = []
 		let prefixSet = CharacterSet(charactersIn: prefix)
 		var pos = startIndex
 		while let prefixRange = rangeOfCharacter(from: prefixSet, range: pos..<endIndex) {
-			// Append string preceding the split mark:
+			// Append string preceding the first token.
 			if prefixRange.lowerBound != pos {
-				let string = self[pos..<prefixRange.lowerBound]
-				result.append(String(string))
+				let previousText = String(self[pos..<prefixRange.lowerBound])
+				let text: String
+				if let lastToken = result.last?.asToken {
+					// If we've already grabbed a token, remove it from the next non-match.
+					let removePrefix = String(lastToken.dropFirst())
+					text = previousText.droppingPrefix(removePrefix)
+				} else {
+					text = previousText
+				}
+				result.append(.text(text))
 			}
+			
 			// Get range of suffix. If no match, that means we're at the end of the string, and you can include everything from the prefix on up.
 			let indexAfterPrefix = self.index(after: prefixRange.lowerBound)
 			let suffixRange = (rangeOfCharacter(from: suffix, range: indexAfterPrefix ..< endIndex) ?? (indexAfterPrefix ..< endIndex))
 			
-			let string = self[prefixRange.lowerBound ..< suffixRange.lowerBound]
-			result.append(String(string))
-			// Update position for next search:
+			// Append the token.
+			let token = self[prefixRange.lowerBound ..< suffixRange.lowerBound]
+			result.append(.token(String(token)))
+			
+			// Update position for next search.
 			pos = prefixRange.upperBound
 		}
-		// Append string following the last split mark:
+		
+		// Append string following the last token.
 		if pos != endIndex {
 			let endOfString = String(self[pos..<endIndex])
 			let endOfLastMatchToEndOfString: String
-			if let lastResult = result.last {
+			if let lastResult = result.last?.asToken {
 				endOfLastMatchToEndOfString = endOfString.droppingPrefix(String(lastResult.dropFirst()))
 			} else {
 				endOfLastMatchToEndOfString = endOfString
 			}
-			result.append(endOfLastMatchToEndOfString)
+			result.append(.text(endOfLastMatchToEndOfString))
 		}
 		return result
 	}

@@ -28,9 +28,12 @@ class StringExtensionTests: XCTestCase {
 	func testTokenize() throws { 
 		let string = "Hi, my name is @token; nice to meet ya. @token2."
 		let tokens = string.tokenize(prefix: "@", until: CharacterSet.whitespaces.union(.punctuationCharacters))
-		XCTAssertEqual(<#T##expression1: Equatable##Equatable#>, <#T##expression2: Equatable##Equatable#>)
-		print(m)
-		print("")
+		XCTAssertEqual(tokens[0].asText, "Hi, my name is ")
+		XCTAssertEqual(tokens[1].asToken, "@token")
+		XCTAssertEqual(tokens[2].asText, "; nice to meet ya. ")
+		XCTAssertEqual(tokens[3].asToken, "@token2")
+		XCTAssertEqual(tokens[4].asText, ".")
+		print(tokens)
 	}
 }
 

@@ -116,11 +116,11 @@ public extension String {
 			}
 		}
 	}
-	func tokenize(prefix: String, until suffix: CharacterSet = CharacterSet.whitespaces.union(.punctuationCharacters)) -> [TokenizeResult] {
+	func tokenize(prefix: String, until suffix: CharacterSet = CharacterSet.whitespaces.union(.punctuationCharacters), options: String.CompareOptions = []) -> [TokenizeResult] {
 		var result: [TokenizeResult] = []
 		let prefixSet = CharacterSet(charactersIn: prefix)
 		var pos = startIndex
-		while let prefixRange = rangeOfCharacter(from: prefixSet, range: pos..<endIndex) {
+		while let prefixRange = rangeOfCharacter(from: prefixSet, options: options, range: pos..<endIndex) {
 			// Append string preceding the first token.
 			if prefixRange.lowerBound != pos {
 				let previousText = String(self[pos..<prefixRange.lowerBound])

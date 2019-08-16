@@ -116,7 +116,7 @@ public extension String {
 			}
 		}
 	}
-	func tokenize(prefix: String, until suffix: CharacterSet) -> [TokenizeResult] {
+	func tokenize(prefix: String, until suffix: CharacterSet = CharacterSet.whitespaces.union(.punctuationCharacters)) -> [TokenizeResult] {
 		var result: [TokenizeResult] = []
 		let prefixSet = CharacterSet(charactersIn: prefix)
 		var pos = startIndex

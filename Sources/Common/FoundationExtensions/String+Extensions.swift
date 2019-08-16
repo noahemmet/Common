@@ -34,15 +34,15 @@ public extension String {
 	}
 	
 	// https://stackoverflow.com/a/47220964
-    func ranges(of substring: String, options: CompareOptions = [], locale: Locale? = nil) -> [Range<Index>] {
-        var ranges: [Range<Index>] = []
-        while ranges.last.map({ $0.upperBound < self.endIndex }) ?? true,
-            let range = self.range(of: substring, options: options, range: (ranges.last?.upperBound ?? self.startIndex)..<self.endIndex, locale: locale)
-        {
-            ranges.append(range)
-        }
-        return ranges
-    }
+	func ranges(of substring: String, options: CompareOptions = [], locale: Locale? = nil) -> [Range<Index>] {
+		var ranges: [Range<Index>] = []
+		while ranges.last.map({ $0.upperBound < self.endIndex }) ?? true,
+			let range = self.range(of: substring, options: options, range: (ranges.last?.upperBound ?? self.startIndex)..<self.endIndex, locale: locale)
+		{
+			ranges.append(range)
+		}
+		return ranges
+	}
 	
 	func strings(for ranges: [Range<Index>]) -> [(String, Range<Index>)] {
 		var allRanges = ranges
@@ -62,7 +62,7 @@ public extension String {
 		}
 		return stringsByRange
 	}
-
+	
 	// https://stackoverflow.com/a/47220964
 	func replacing<Result>(_ strings: [String], options: CompareOptions = [], locale: Locale? = nil, with handler: (String, [Range<Index>]) throws -> Result) rethrows -> [Result] {
 		let rangesBySubstring = strings.flatMap { [$0: self.ranges(of: $0)] }
@@ -71,31 +71,63 @@ public extension String {
 			return try handler(match, ranges)
 		}
 		return results
-    }
+	}
 	
-    func tokenize(by characterSet: CharacterSet) -> [String] {
+	func tokenize(by characterSet: CharacterSet) -> [String] {
 		var result: [String] = []
-        var pos = startIndex
-        while let range = rangeOfCharacter(from: characterSet, range: pos..<endIndex) {
-            // Append string preceding the split mark:
-            if range.lowerBound != pos {
+		var pos = startIndex
+		while let range = rangeOfCharacter(from: characterSet, range: pos..<endIndex) {
+			// Append string preceding the split mark:
+			if range.lowerBound != pos {
 				let string = self[pos..<range.lowerBound]
 				result.append(String(string))
-            }
-            // Append split mark:
+			}
+			// Append split mark:
 			let string = self[range]
-            result.append(String(string))
-            // Update position for next search:
-            pos = range.upperBound
-        }
-        // Append string following the last split mark:
-        if pos != endIndex {
+			result.append(String(string))
+			// Update position for next search:
+			pos = range.upperBound
+		}
+		// Append string following the last split mark:
+		if pos != endIndex {
 			let string = self[pos..<endIndex]
 			result.append(String(string))
-        }
-        return result
-    }
-
+		}
+		return result
+	}
+	
+	func tokenize(prefix: String, until suffix: CharacterSet) -> [String] {
+		var result: [String] = []
+		let prefixSet = CharacterSet(charactersIn: prefix)
+		var pos = startIndex
+		while let prefixRange = rangeOfCharacter(from: prefixSet, range: pos..<endIndex) {
+			// Append string preceding the split mark:
+			if prefixRange.lowerBound != pos {
+				let string = self[pos..<prefixRange.lowerBound]
+				result.append(String(string))
+			}
+			// Get range of suffix. If no match, that means we're at the end of the string, and you can include everything from the prefix on up.
+			let indexAfterPrefix = self.index(after: prefixRange.lowerBound)
+			let suffixRange = (rangeOfCharacter(from: suffix, range: indexAfterPrefix ..< endIndex) ?? (indexAfterPrefix ..< endIndex))
+			
+			let string = self[prefixRange.lowerBound ..< suffixRange.lowerBound]
+			result.append(String(string))
+			// Update position for next search:
+			pos = prefixRange.upperBound
+		}
+		// Append string following the last split mark:
+		if pos != endIndex {
+			let endOfString = String(self[pos..<endIndex])
+			let endOfLastMatchToEndOfString: String
+			if let lastResult = result.last {
+				endOfLastMatchToEndOfString = endOfString.droppingPrefix(String(lastResult.dropFirst()))
+			} else {
+				endOfLastMatchToEndOfString = endOfString
+			}
+			result.append(endOfLastMatchToEndOfString)
+		}
+		return result
+	}
 	
 	func prepending(_ prefix: String) -> String {
 		return prefix + self

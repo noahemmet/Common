@@ -24,12 +24,19 @@ class StringExtensionTests: XCTestCase {
 		}
 		XCTAssertEqual(replaced, [1, 2, 34])
 	}
-
 	
-	func testTokenize() throws {
-		let string = "one, two, three, four."
-		let m = string.tokenize(by: .punctuationCharacters)
+	func testTokenize() throws { 
+		let string = "Hi, my name is @token; nice to meet ya. @token2."
+		let tokens = string.tokenize(prefix: "@", until: CharacterSet.whitespaces.union(.punctuationCharacters))
+		XCTAssertEqual(<#T##expression1: Equatable##Equatable#>, <#T##expression2: Equatable##Equatable#>)
 		print(m)
+		print("")
 	}
-	
+}
+
+extension String {
+	func split(byPrefix prefix: String, to endCharacterSet: CharacterSet) -> [WordSplitResult] {
+		
+		return []
+	}
 }

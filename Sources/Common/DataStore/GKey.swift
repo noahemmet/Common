@@ -71,4 +71,8 @@ extension Collection where Element: GKeyed {
 	public func filter(with keys: [GKey<Element>]) -> [Element] {
 		return self.filter { keys.contains($0.key) }
 	}
+	
+	public func first(with key: GKey<Element>) throws -> Element {
+		return try self.first(where: { $0.key == key }).unwrap(orThrow: "Element not found with key: \(key)")
+	}
 }

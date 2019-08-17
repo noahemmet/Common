@@ -45,12 +45,14 @@ public extension Collection where Element: Keyed {
 public struct Key: ExpressibleByStringLiteral, RawRepresentable, Hashable {
 	public let rawValue: String
 	
+	/// Uses the raw string.
 	public init(rawValue: String) {
-		self.rawValue = rawValue.lowerCamelCased
+		self.rawValue = rawValue
 	}
 	
-	public init(_ rawValue: String) {
-		self.init(rawValue: rawValue)
+	/// Converts the string to lowerCamelCase.
+	public init(_ text: String) {
+		self.rawValue = text.lowerCamelCased
 	}
 	
 	public init(keys: [Key]) {
@@ -58,7 +60,7 @@ public struct Key: ExpressibleByStringLiteral, RawRepresentable, Hashable {
 	}
 	
 	public init(stringLiteral: String) {
-		self.init(rawValue: stringLiteral)
+		self.init(stringLiteral)
 	}
 	
 	public var subkeys: [Key] {

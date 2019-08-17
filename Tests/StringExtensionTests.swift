@@ -70,6 +70,14 @@ class StringExtensionTests: XCTestCase {
 		XCTAssertEqual(tokens[0].asToken, "@token")
 	}
 	
+	func testTokenizeLeadingSpaceTokenNotDroppingPrefix() throws { 
+		let untilCharacterSet = CharacterSet.whitespaces.union(.punctuationCharacters)
+		let string = "foo @token"
+		let tokens = string.tokenize(prefix: "@", until: untilCharacterSet, dropPrefix: false)
+		XCTAssertEqual(tokens[0].asText, "foo ")
+		XCTAssertEqual(tokens[1].asToken, "@token")
+	}
+	
 	func testTokenizePlainString() throws { 
 		let string = "No tokens here."
 		let tokensDroppingPrefix = string.tokenize(prefix: "@", until: CharacterSet.whitespaces.union(.punctuationCharacters), dropPrefix: true)

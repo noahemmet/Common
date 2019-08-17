@@ -130,27 +130,10 @@ public extension String {
 			return [.text(self)]
 		}
 		
-//		guard self.components(separatedBy: prefix).count != 2 else {
-//			if dropPrefix {
-//				return [.token(self.droppingPrefix(prefix))]
-//			} else {
-//				return [.token(self)]
-//			}
-//		}
 		var result: [TokenizeResult] = []
 		let prefixSet = CharacterSet(charactersIn: prefix)
 		var pos = startIndex
 		while let prefixRange = rangeOfCharacter(from: prefixSet, options: options, range: pos..<endIndex) {
-			
-//			guard prefixRange != (self.index(after: startIndex) ..< endIndex) else {
-//				// If we match the enter string, return self as a token.
-//				if dropPrefix {
-//					result.append(.token(self))
-//				} else {
-//					result.append(.token(self.droppingPrefix(prefix)))
-//				}
-//				break
-//			}
 			
 			// Append string preceding the first token.
 			if prefixRange.lowerBound != pos {
@@ -177,7 +160,7 @@ public extension String {
 			if let suffixRange = rangeOfCharacter(from: suffix, range: indexAfterPrefix ..< endIndex) {
 				token = String(self[prefixRange.lowerBound ..< suffixRange.lowerBound])
 			} else {
-				token = self
+				token = String(self[prefixRange.lowerBound ..< endIndex])
 			}
 			// Append the token.
 			if dropPrefix {

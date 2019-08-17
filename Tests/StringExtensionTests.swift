@@ -9,6 +9,15 @@ class StringExtensionTests: XCTestCase {
 	override func tearDown() {
 	}
 	
+	func testCamelCase() {
+		let text = "one two three"
+		XCTAssertEqual(text.lowerCamelCased, "oneTwoThree")
+		XCTAssertEqual(text.upperCamelCased, "OneTwoThree")
+		
+		let empty = ""
+		XCTAssertEqual(empty.lowerCamelCased, "")
+	}
+	
 	func testMatches() throws {
 		let string = "one two three four"
 		let ranges = string.ranges(of: "two")
@@ -34,12 +43,5 @@ class StringExtensionTests: XCTestCase {
 		XCTAssertEqual(tokens[3].asToken, "@token2")
 		XCTAssertEqual(tokens[4].asText, ".")
 		print(tokens)
-	}
-}
-
-extension String {
-	func split(byPrefix prefix: String, to endCharacterSet: CharacterSet) -> [WordSplitResult] {
-		
-		return []
 	}
 }

@@ -178,17 +178,22 @@ public extension String {
 	}
 	
 	var upperCamelCased: String {
-		return self.lowercased()
-			.split(separator: " ")
-			.map { return $0.lowercased().lowercasingFirst }
-			.joined()
+		return lowerCamelCased.uppercasingFirst
 	}
 	
 	var lowerCamelCased: String {
-		let upperCased = self.upperCamelCased
-			return upperCased.prefix(1).lowercased() + upperCased.dropFirst()
+		guard !isEmpty else {
+			return ""
+		}
+		
+		let parts = self.components(separatedBy: CharacterSet.alphanumerics.inverted)
+		
+		let first = String(describing: parts.first!).lowercasingFirst
+		let rest = parts.dropFirst().map({String($0).uppercasingFirst})
+		
+		return ([first] + rest).joined(separator: "")
 	}
-
+	
 	
 	/// Downcases the string and replaces whitespace with a `_`. Useful for keys.
 	var normalized: String {

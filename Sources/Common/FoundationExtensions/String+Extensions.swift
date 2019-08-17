@@ -126,12 +126,32 @@ public extension String {
 	}
 	func tokenize(prefix: String, until suffix: CharacterSet = CharacterSet.whitespaces.union(.punctuationCharacters), dropPrefix: Bool = true, options: String.CompareOptions = []) -> [TokenizeResult] {
 		guard self.contains(prefix) else {
+			// If we don't contain the prefix at all, no need to search for it.
 			return [.text(self)]
 		}
+		
+//		guard self.components(separatedBy: prefix).count != 2 else {
+//			if dropPrefix {
+//				return [.token(self.droppingPrefix(prefix))]
+//			} else {
+//				return [.token(self)]
+//			}
+//		}
 		var result: [TokenizeResult] = []
 		let prefixSet = CharacterSet(charactersIn: prefix)
 		var pos = startIndex
 		while let prefixRange = rangeOfCharacter(from: prefixSet, options: options, range: pos..<endIndex) {
+			
+//			guard prefixRange != (self.index(after: startIndex) ..< endIndex) else {
+//				// If we match the enter string, return self as a token.
+//				if dropPrefix {
+//					result.append(.token(self))
+//				} else {
+//					result.append(.token(self.droppingPrefix(prefix)))
+//				}
+//				break
+//			}
+			
 			// Append string preceding the first token.
 			if prefixRange.lowerBound != pos {
 				let previousText = String(self[pos..<prefixRange.lowerBound])
@@ -153,10 +173,13 @@ public extension String {
 			
 			// Get range of suffix. If no match, that means we're at the end of the string, and you can include everything from the prefix on up.
 			let indexAfterPrefix = self.index(after: prefixRange.lowerBound)
-			let suffixRange = (rangeOfCharacter(from: suffix, range: indexAfterPrefix ..< endIndex) ?? (indexAfterPrefix ..< endIndex))
-			
+			var token: String
+			if let suffixRange = rangeOfCharacter(from: suffix, range: indexAfterPrefix ..< endIndex) {
+				token = String(self[prefixRange.lowerBound ..< suffixRange.lowerBound])
+			} else {
+				token = self
+			}
 			// Append the token.
-			var token = String(self[prefixRange.lowerBound ..< suffixRange.lowerBound])
 			if dropPrefix {
 				token.dropPrefix(prefix)
 			}

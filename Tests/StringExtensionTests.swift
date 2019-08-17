@@ -35,8 +35,10 @@ class StringExtensionTests: XCTestCase {
 	}
 	
 	func testTokenizeDroppingPrefix() throws { 
+		let untilCharacterSet = CharacterSet.whitespaces.union(.punctuationCharacters)
+		
 		let string = "Hi, my name is @token; nice to meet ya. @token2."
-		let tokens = string.tokenize(prefix: "@", until: CharacterSet.whitespaces.union(.punctuationCharacters), dropPrefix: true)
+		let tokens = string.tokenize(prefix: "@", until: untilCharacterSet, dropPrefix: true)
 		XCTAssertEqual(tokens[0].asText, "Hi, my name is ")
 		XCTAssertEqual(tokens[1].asToken, "token")
 		XCTAssertEqual(tokens[2].asText, "; nice to meet ya. ")
@@ -52,6 +54,20 @@ class StringExtensionTests: XCTestCase {
 		XCTAssertEqual(tokens[2].asText, "; nice to meet ya. ")
 		XCTAssertEqual(tokens[3].asToken, "@token2")
 		XCTAssertEqual(tokens[4].asText, ".")
+	}
+	
+	func testTokenizeJustTokenDroppingPrefix() throws { 
+		let untilCharacterSet = CharacterSet.whitespaces.union(.punctuationCharacters)
+		let string = "@token"
+		let tokens = string.tokenize(prefix: "@", until: untilCharacterSet, dropPrefix: true)
+		XCTAssertEqual(tokens[0].asToken, "token")
+	}
+	
+	func testTokenizeJustTokenNotDroppingPrefix() throws { 
+		let untilCharacterSet = CharacterSet.whitespaces.union(.punctuationCharacters)
+		let string = "@token"
+		let tokens = string.tokenize(prefix: "@", until: untilCharacterSet, dropPrefix: false)
+		XCTAssertEqual(tokens[0].asToken, "@token")
 	}
 	
 	func testTokenizePlainString() throws { 

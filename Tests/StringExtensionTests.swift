@@ -34,14 +34,23 @@ class StringExtensionTests: XCTestCase {
 		XCTAssertEqual(replaced, [1, 2, 34])
 	}
 	
-	func testTokenize() throws { 
+	func testTokenizeDroppingPrefix() throws { 
 		let string = "Hi, my name is @token; nice to meet ya. @token2."
-		let tokens = string.tokenize(prefix: "@", until: CharacterSet.whitespaces.union(.punctuationCharacters))
+		let tokens = string.tokenize(prefix: "@", until: CharacterSet.whitespaces.union(.punctuationCharacters), dropPrefix: true)
+		XCTAssertEqual(tokens[0].asText, "Hi, my name is ")
+		XCTAssertEqual(tokens[1].asToken, "token")
+		XCTAssertEqual(tokens[2].asText, "; nice to meet ya. ")
+		XCTAssertEqual(tokens[3].asToken, "token2")
+		XCTAssertEqual(tokens[4].asText, ".")
+	}
+	
+	func testTokenizeNotDroppingPrefix() throws { 
+		let string = "Hi, my name is @token; nice to meet ya. @token2."
+		let tokens = string.tokenize(prefix: "@", until: CharacterSet.whitespaces.union(.punctuationCharacters), dropPrefix: false)
 		XCTAssertEqual(tokens[0].asText, "Hi, my name is ")
 		XCTAssertEqual(tokens[1].asToken, "@token")
 		XCTAssertEqual(tokens[2].asText, "; nice to meet ya. ")
 		XCTAssertEqual(tokens[3].asToken, "@token2")
 		XCTAssertEqual(tokens[4].asText, ".")
-		print(tokens)
 	}
 }

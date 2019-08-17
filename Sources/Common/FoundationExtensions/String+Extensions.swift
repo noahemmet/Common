@@ -135,8 +135,13 @@ public extension String {
 				let text: String
 				if let lastToken = result.last?.asToken {
 					// If we've already grabbed a token, remove it from the next non-match.
-					let removePrefix = String(lastToken.dropFirst())
-					text = previousText.droppingPrefix(removePrefix)
+					let prefixToDrop: String
+					if dropPrefix {
+						prefixToDrop = lastToken
+					} else {
+						prefixToDrop = String(lastToken.dropFirst(prefix.count))
+					}
+					text = previousText.droppingPrefix(prefixToDrop)
 				} else {
 					text = previousText
 				}
@@ -162,10 +167,17 @@ public extension String {
 		if pos != endIndex {
 			let endOfString = String(self[pos..<endIndex])
 			let endOfLastMatchToEndOfString: String
-			if let lastResult = result.last?.asToken {
-				endOfLastMatchToEndOfString = endOfString.droppingPrefix(String(lastResult.dropFirst()))
+			if let lastToken = result.last?.asToken {
+				// If we've already grabbed a token, remove it from the next non-match.
+				let prefixToDrop: String
+				if dropPrefix {
+					prefixToDrop = lastToken
+				} else {
+					prefixToDrop = String(lastToken.dropFirst(prefix.count))
+				}
+				endOfLastMatchToEndOfString = endOfString.droppingPrefix(prefixToDrop)
 			} else {
-				endOfLastMatchToEndOfString = endOfString
+				endOfLastMatchToEndOfString = ""
 			}
 			result.append(.text(endOfLastMatchToEndOfString))
 		}

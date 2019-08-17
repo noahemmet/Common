@@ -19,6 +19,14 @@ public extension String {
 		return String(self.dropLast(suffix.count))
 	}
 	
+	mutating func dropPrefix(_ prefix: String) {
+		self = self.droppingPrefix(prefix)
+	}
+	
+	mutating func dropSuffix(_ suffix: String) {
+		self = self.droppingSuffix(suffix)
+	}
+	
 	func droppingUntil(_ match: String) -> String {
 		guard let range = self.range(of: match) else { return self }
 		var newString = self
@@ -116,7 +124,7 @@ public extension String {
 			}
 		}
 	}
-	func tokenize(prefix: String, until suffix: CharacterSet = CharacterSet.whitespaces.union(.punctuationCharacters), options: String.CompareOptions = []) -> [TokenizeResult] {
+	func tokenize(prefix: String, until suffix: CharacterSet = CharacterSet.whitespaces.union(.punctuationCharacters), dropPrefix: Bool = true, options: String.CompareOptions = []) -> [TokenizeResult] {
 		var result: [TokenizeResult] = []
 		let prefixSet = CharacterSet(charactersIn: prefix)
 		var pos = startIndex
@@ -140,8 +148,11 @@ public extension String {
 			let suffixRange = (rangeOfCharacter(from: suffix, range: indexAfterPrefix ..< endIndex) ?? (indexAfterPrefix ..< endIndex))
 			
 			// Append the token.
-			let token = self[prefixRange.lowerBound ..< suffixRange.lowerBound]
-			result.append(.token(String(token)))
+			var token = String(self[prefixRange.lowerBound ..< suffixRange.lowerBound])
+			if dropPrefix {
+				token.dropPrefix(prefix)
+			}
+			result.append(.token(token))
 			
 			// Update position for next search.
 			pos = prefixRange.upperBound
@@ -185,12 +196,9 @@ public extension String {
 		guard !isEmpty else {
 			return ""
 		}
-		
 		let parts = self.components(separatedBy: CharacterSet.alphanumerics.inverted)
-		
 		let first = String(describing: parts.first!).lowercasingFirst
 		let rest = parts.dropFirst().map({String($0).uppercasingFirst})
-		
 		return ([first] + rest).joined(separator: "")
 	}
 	

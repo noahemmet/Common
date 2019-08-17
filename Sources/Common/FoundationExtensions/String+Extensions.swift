@@ -125,6 +125,9 @@ public extension String {
 		}
 	}
 	func tokenize(prefix: String, until suffix: CharacterSet = CharacterSet.whitespaces.union(.punctuationCharacters), dropPrefix: Bool = true, options: String.CompareOptions = []) -> [TokenizeResult] {
+		guard self.contains(prefix) else {
+			return [.text(self)]
+		}
 		var result: [TokenizeResult] = []
 		let prefixSet = CharacterSet(charactersIn: prefix)
 		var pos = startIndex

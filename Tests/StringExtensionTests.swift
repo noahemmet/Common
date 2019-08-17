@@ -53,4 +53,13 @@ class StringExtensionTests: XCTestCase {
 		XCTAssertEqual(tokens[3].asToken, "@token2")
 		XCTAssertEqual(tokens[4].asText, ".")
 	}
+	
+	func testTokenizePlainString() throws { 
+		let string = "No tokens here."
+		let tokensDroppingPrefix = string.tokenize(prefix: "@", until: CharacterSet.whitespaces.union(.punctuationCharacters), dropPrefix: true)
+		XCTAssertEqual(tokensDroppingPrefix[0].asText, "No tokens here.")
+		
+		let tokensNotDroppingPrefix = string.tokenize(prefix: "@", until: CharacterSet.whitespaces.union(.punctuationCharacters), dropPrefix: false)
+		XCTAssertEqual(tokensNotDroppingPrefix[0].asText, "No tokens here.")
+	}
 }

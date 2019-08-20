@@ -53,8 +53,8 @@ public extension String {
 		}
 	}
 	
-	func tokenize(prefix: String, until suffix: String, dropPrefix: Bool = true, options: String.CompareOptions = []) -> [TokenizeResult] {
-		return self.tokenize(prefix: prefix, untilEither: .right(suffix), dropPrefix: dropPrefix, options: options)
+	func tokenize(prefix: String, until suffix: String, options: String.CompareOptions = []) -> [TokenizeResult] {
+		return self.tokenize(prefix: prefix, untilEither: .right(suffix), dropPrefix: true, options: options)
 	}
 	
 	func tokenize(prefix: String, untilAny suffix: CharacterSet = CharacterSet.whitespaces.union(.punctuationCharacters), dropPrefix: Bool = true, options: String.CompareOptions = []) -> [TokenizeResult] {
@@ -68,7 +68,6 @@ public extension String {
 		}
 		
 		var result: [TokenizeResult] = []
-//		let prefixSet = CharacterSet(charactersIn: prefix)
 		var pos = startIndex
 		while let prefixRange = range(of: prefix, options: options, range: pos..<endIndex) {
 			// Append string preceding the first token.
@@ -83,7 +82,11 @@ public extension String {
 					} else {
 						prefixToDrop = String(lastToken.dropFirst(prefix.count))
 					}
-					text = previousText.droppingPrefix(prefixToDrop)
+					if let suffixString = suffix.rightValue { 
+						text = previousText.droppingPrefix(prefixToDrop).droppingPrefix(suffixString)
+					} else {
+						text = previousText.droppingPrefix(prefixToDrop)
+					}
 				} else {
 					text = previousText
 				}
@@ -98,7 +101,7 @@ public extension String {
 			case .left(let characterSet):
 				suffixRange = rangeOfCharacter(from: characterSet, options: options, range: indexAfterPrefix ..< endIndex)
 			case .right(let string):
-				suffixRange = range(of: string)
+				suffixRange = range(of: string, options: options, range: indexAfterPrefix ..< endIndex)
 			}
 			if let suffixRange = suffixRange {
 				token = String(self[prefixRange.lowerBound ..< suffixRange.lowerBound])
@@ -127,7 +130,11 @@ public extension String {
 				} else {
 					prefixToDrop = String(lastToken.dropFirst(prefix.count))
 				}
-				endOfLastMatchToEndOfString = endOfString.droppingPrefix(prefixToDrop)
+				if let suffixString = suffix.rightValue { 
+					endOfLastMatchToEndOfString = endOfString.droppingPrefix(prefixToDrop).droppingPrefix(suffixString)
+				} else {
+					endOfLastMatchToEndOfString = endOfString.droppingPrefix(prefixToDrop)
+				}
 			} else {
 				endOfLastMatchToEndOfString = ""
 			}

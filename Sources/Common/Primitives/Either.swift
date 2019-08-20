@@ -9,46 +9,54 @@
 import Foundation
 
 public enum Either<Left, Right> {
-    case left(Left)
-    case right(Right)
-    
-    public init(_ left: Left) {
-        self = .left(left)
-    }
-    
-    public init(_ right: Right) {
-        self = .right(right)
-    }
-    
-    public init(_ left: Left?, _ right: Right?) throws {
-        switch (left, right) {
-        case (let leftValue?, nil):
-            self.init(leftValue)
-        case (nil, let rightValue?):
-            self.init(rightValue)
-        case (nil, nil):
-            throw Error.nilValues
-        case (_, _):
-            throw Error.twoNonNilValues
-        }
-    }
-    
-    public var leftValue: Left? {
-        guard case .left(let left) = self else { return nil }
-        return left
-    }
-    
-    public var rightValue: Right? {
-        guard case .right(let right) = self else { return nil }
-        return right
-    }
+	case left(Left)
+	case right(Right)
+	
+	public init(_ left: Left) {
+		self = .left(left)
+	}
+	
+	public init(_ right: Right) {
+		self = .right(right)
+	}
+	
+	public init(_ left: Left?, _ right: Right?) throws {
+		switch (left, right) {
+		case (let leftValue?, nil):
+			self.init(leftValue)
+		case (nil, let rightValue?):
+			self.init(rightValue)
+		case (nil, nil):
+			throw Error.nilValues
+		case (_, _):
+			throw Error.twoNonNilValues
+		}
+	}
+	
+	public var isLeft: Bool {
+		return leftValue != nil
+	}
+	
+	public var isRight: Bool {
+		return rightValue != nil
+	}
+	
+	public var leftValue: Left? {
+		guard case .left(let left) = self else { return nil }
+		return left
+	}
+	
+	public var rightValue: Right? {
+		guard case .right(let right) = self else { return nil }
+		return right
+	}
 }
 
 extension Either {
-    public enum Error: Swift.Error {
-        case nilValues
-        case twoNonNilValues
-    }
+	public enum Error: Swift.Error {
+		case nilValues
+		case twoNonNilValues
+	}
 }
 
 extension Either: Equatable where Left: Equatable, Right: Equatable { }

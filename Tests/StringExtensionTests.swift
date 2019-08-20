@@ -38,7 +38,7 @@ class StringExtensionTests: XCTestCase {
 		let untilCharacterSet = CharacterSet.whitespaces.union(.punctuationCharacters)
 		
 		let string = "Hi, my name is @token; nice to meet ya. @token2."
-		let tokens = string.tokenize(prefix: "@", until: untilCharacterSet, dropPrefix: true)
+		let tokens = string.tokenize(prefix: "@", untilAny: untilCharacterSet, dropPrefix: true)
 		XCTAssertEqual(tokens[0].asText, "Hi, my name is ")
 		XCTAssertEqual(tokens[1].asToken, "token")
 		XCTAssertEqual(tokens[2].asText, "; nice to meet ya. ")
@@ -48,7 +48,7 @@ class StringExtensionTests: XCTestCase {
 	
 	func testTokenizeNotDroppingPrefix() throws { 
 		let string = "Hi, my name is @token; nice to meet ya. @token2."
-		let tokens = string.tokenize(prefix: "@", until: CharacterSet.whitespaces.union(.punctuationCharacters), dropPrefix: false)
+		let tokens = string.tokenize(prefix: "@", untilAny: CharacterSet.whitespaces.union(.punctuationCharacters), dropPrefix: false)
 		XCTAssertEqual(tokens[0].asText, "Hi, my name is ")
 		XCTAssertEqual(tokens[1].asToken, "@token")
 		XCTAssertEqual(tokens[2].asText, "; nice to meet ya. ")
@@ -59,31 +59,31 @@ class StringExtensionTests: XCTestCase {
 	func testTokenizeJustTokenDroppingPrefix() throws { 
 		let untilCharacterSet = CharacterSet.whitespaces.union(.punctuationCharacters)
 		let string = "@token"
-		let tokens = string.tokenize(prefix: "@", until: untilCharacterSet, dropPrefix: true)
+		let tokens = string.tokenize(prefix: "@", untilAny: untilCharacterSet, dropPrefix: true)
 		XCTAssertEqual(tokens[0].asToken, "token")
 	}
 	
 	func testTokenizeJustTokenNotDroppingPrefix() throws { 
 		let untilCharacterSet = CharacterSet.whitespaces.union(.punctuationCharacters)
 		let string = "@token"
-		let tokens = string.tokenize(prefix: "@", until: untilCharacterSet, dropPrefix: false)
+		let tokens = string.tokenize(prefix: "@", untilAny: untilCharacterSet, dropPrefix: false)
 		XCTAssertEqual(tokens[0].asToken, "@token")
 	}
 	
 	func testTokenizeLeadingSpaceTokenNotDroppingPrefix() throws { 
 		let untilCharacterSet = CharacterSet.whitespaces.union(.punctuationCharacters)
 		let string = "foo @token"
-		let tokens = string.tokenize(prefix: "@", until: untilCharacterSet, dropPrefix: false)
+		let tokens = string.tokenize(prefix: "@", untilAny: untilCharacterSet, dropPrefix: false)
 		XCTAssertEqual(tokens[0].asText, "foo ")
 		XCTAssertEqual(tokens[1].asToken, "@token")
 	}
 	
 	func testTokenizePlainString() throws { 
 		let string = "No tokens here."
-		let tokensDroppingPrefix = string.tokenize(prefix: "@", until: CharacterSet.whitespaces.union(.punctuationCharacters), dropPrefix: true)
+		let tokensDroppingPrefix = string.tokenize(prefix: "@", untilAny: CharacterSet.whitespaces.union(.punctuationCharacters), dropPrefix: true)
 		XCTAssertEqual(tokensDroppingPrefix[0].asText, "No tokens here.")
 		
-		let tokensNotDroppingPrefix = string.tokenize(prefix: "@", until: CharacterSet.whitespaces.union(.punctuationCharacters), dropPrefix: false)
+		let tokensNotDroppingPrefix = string.tokenize(prefix: "@", untilAny: CharacterSet.whitespaces.union(.punctuationCharacters), dropPrefix: false)
 		XCTAssertEqual(tokensNotDroppingPrefix[0].asText, "No tokens here.")
 	}
 }

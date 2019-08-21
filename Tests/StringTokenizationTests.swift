@@ -67,8 +67,8 @@ class StringTokenizationTests: XCTestCase {
 	// MARK: - StringPrefix
 	
 	func testTokenizeString() throws { 		
-		let string = "Hi, my name is @{token}; nice to meet ya. @{token2}."
-		let tokens = string.tokenize(prefix: "@{", until: "}")
+		let string = "Hi, my name is {token}; nice to meet ya. {token2}."
+		let tokens = string.tokenize(prefix: "{", until: "}")
 		XCTAssertEqual(tokens[0].asText, "Hi, my name is ")
 		XCTAssertEqual(tokens[1].asToken, "token")
 		XCTAssertEqual(tokens[2].asText, "; nice to meet ya. ")
@@ -78,22 +78,22 @@ class StringTokenizationTests: XCTestCase {
 	
 	
 	func testTokenizeStringJustToken() throws { 
-		let string = "@{token}"
-		let tokens = string.tokenize(prefix: "@{", until: "}")
+		let string = "{token}"
+		let tokens = string.tokenize(prefix: "{", until: "}")
 		XCTAssertEqual(tokens[0].asToken, "token")
 	}
 	
 	
 	func testTokenizeStringLeadingSpaceToken() throws { 
-		let string = "foo {@token}"
-		let tokens = string.tokenize(prefix: "@{", until: "}")
+		let string = "foo {token}"
+		let tokens = string.tokenize(prefix: "{", until: "}")
 		XCTAssertEqual(tokens[0].asText, "foo ")
 		XCTAssertEqual(tokens[1].asToken, "token")
 	}
 	
 	func testTokenizeStringPlainString() throws { 
 		let string = "No tokens here."
-		let tokens = string.tokenize(prefix: "@{", until: "}")
+		let tokens = string.tokenize(prefix: "{", until: "}")
 		XCTAssertEqual(tokens[0].asText, "No tokens here.")
 		
 	}

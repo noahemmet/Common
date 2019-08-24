@@ -19,6 +19,16 @@ public extension String {
 		return String(self.dropLast(suffix.count))
 	}
 	
+	func droppingIfPrefixed(by prefix: String) -> String? {
+		guard self.hasPrefix(prefix) else { return nil }
+		return String(self.dropFirst(prefix.count))
+	}
+	
+	func droppingIfSuffixed(by suffix: String) -> String? {
+		guard hasSuffix(suffix) else { return nil }
+		return String(self.dropLast(suffix.count))
+	}
+	
 	mutating func dropPrefix(_ prefix: String) {
 		self = self.droppingPrefix(prefix)
 	}

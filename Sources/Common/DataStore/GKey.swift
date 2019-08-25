@@ -54,7 +54,7 @@ public struct GKey<Item: GKeyed>: Hashable, ExpressibleByStringLiteral {
 
 extension GKey: CustomDebugStringConvertible {
 	public var debugDescription: String {
-		return "<\(Item.self)>\(key)"
+		return "<\(Item.self)>\(key.rawValue)"
 	}
 }
 

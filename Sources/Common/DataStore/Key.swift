@@ -69,7 +69,7 @@ public struct Key: ExpressibleByStringLiteral, RawRepresentable, Hashable {
 	}
 	
 	public mutating func makeUnique(length: Int = 8) {
-		self = Key(rawValue + "-" + String.random(length: length))
+		self = Key(rawValue: rawValue + "-" + String.random(length: length))
 	}
 	
 	public func uniquing(length: Int = 8) -> Key {

@@ -79,6 +79,13 @@ public struct Key: ExpressibleByStringLiteral, RawRepresentable, Hashable {
 	}
 }
 
+extension Key: CustomDebugStringConvertible {
+	public var debugDescription: String {
+		return rawValue
+	}
+}
+
+
 extension Key: Codable {
 	
 	public init(from decoder: Decoder) throws {

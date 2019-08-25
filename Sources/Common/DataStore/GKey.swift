@@ -52,6 +52,12 @@ public struct GKey<Item: GKeyed>: Hashable, ExpressibleByStringLiteral {
 	}
 }
 
+extension GKey: CustomDebugStringConvertible {
+	public var debugDescription: String {
+		return "<\(Item.self)>\(key)"
+	}
+}
+
 extension GKey: Codable {
 	
 	public init(from decoder: Decoder) throws {

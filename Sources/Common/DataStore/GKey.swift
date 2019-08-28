@@ -24,7 +24,7 @@ public extension Collection where Element: GKeyed {
 			if existingElementKeyCount > 1 {
 				// Non-unique; add unique string.
 				var new = element
-				new.key = GKey(new.key.key.rawValue + String.random(length: appendixLength))
+				new.key = GKey(new.key.rawValue + String.random(length: appendixLength))
 				return new
 			}
 			return element
@@ -33,28 +33,40 @@ public extension Collection where Element: GKeyed {
 	}
 }
 
+// MARK: - GKey
 
 /// A key that's generic over an item.
 public struct GKey<Item: GKeyed>: Hashable, ExpressibleByStringLiteral {
-	public var key: Key
+	public var rawKey: Key
+	public var rawValue: String { return rawKey.rawValue }
 	public static var itemType: Item.Type { return Item.self }
 	
 	public init(_ rawValue: String) {
-		key = Key(rawValue)
+		rawKey = Key(rawValue)
 	}
 	
 	public init(_ key: Key) {
-		self.key = key
+		self.rawKey = key
 	}
 	
 	public init(stringLiteral: String) {
 		self.init(stringLiteral)
 	}
+	
+	public mutating func makeUnique(length: Int = 8) {
+		self.rawKey.makeUnique()
+	}
+	
+	public func uniquing(length: Int = 8) -> GKey {
+		var key = self
+		key.makeUnique()
+		return key
+	}
 }
 
 extension GKey: CustomDebugStringConvertible {
 	public var debugDescription: String {
-		return "<\(Item.self)>\(key.rawValue)"
+		return "<\(Item.self)>\(rawValue)"
 	}
 }
 
@@ -68,7 +80,7 @@ extension GKey: Codable {
 	
 	public func encode(to encoder: Encoder) throws {
 		var container = encoder.singleValueContainer()
-		try container.encode(key)
+		try container.encode(rawKey)
 	}
 	
 }

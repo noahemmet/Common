@@ -15,6 +15,11 @@ public protocol Keyed {
 }
 
 public extension Collection where Element: Keyed {
+	
+	public var keys: [Key] {
+		return self.map { $0.key }
+	}
+	
 	func keyed() -> [Key: [Element]] {
 		let dict: [Key: [Element]] = Dictionary(grouping: self) { element in
 			return element.key

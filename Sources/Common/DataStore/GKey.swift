@@ -86,6 +86,11 @@ extension GKey: Codable {
 }
 
 extension Collection where Element: GKeyed {
+	
+	public var keys: [GKey<Self>] {
+		return self.map { $0.key }
+	}
+	
 	public func filter(with keys: [GKey<Element>]) -> [Element] {
 		return self.filter { keys.contains($0.key) }
 	}

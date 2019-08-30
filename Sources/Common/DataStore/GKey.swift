@@ -87,7 +87,7 @@ extension GKey: Codable {
 
 extension Collection where Element: GKeyed {
 	
-	public var keys: [GKey<Self>] {
+	public var keys: [GKey<Element>] {
 		return self.map { $0.key }
 	}
 	

@@ -21,3 +21,14 @@ public extension Bool {
 		self = false
 	}
 }
+
+extension Optional where Wrapped == Bool {
+	public var isTrueOrNil: Bool {
+		switch self {
+		case .some(let bool):
+			return bool
+		case .none:
+			return true
+		}
+	}
+}

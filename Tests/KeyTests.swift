@@ -19,21 +19,26 @@ class KeyTests: XCTestCase {
 		// Put teardown code here. This method is called after the invocation of each test method in the class.
 	}
 	
-	func testKeyInit() {
-		let key1 = Key("lowerUpper")
-		XCTAssertEqual(key1.rawValue, "lowerUpper")
-		let key2 = Key("lowerUpper")
-		XCTAssertEqual(key2.rawValue, "lowerUpper")
-		let key3 = Key("lower Upper")
-		XCTAssertEqual(key3.rawValue, "lowerUpper")
-		let key4 = Key("Upper Upper")
-		XCTAssertEqual(key4.rawValue, "upperUpper")
-		let key5 = Key("lower lower")
-		XCTAssertEqual(key5.rawValue, "lowerLower")
-		
-		let key6 = Key(rawValue: "raw value")
-		XCTAssertEqual(key6.rawValue, "raw value")
-	}
+//	func testKeyCamelInit() {
+//		let key1 = Key("lowerUpper")
+//		XCTAssertEqual(key1.rawValue, "lowerUpper")
+//		let key2 = Key("lowerUpper")
+//		XCTAssertEqual(key2.rawValue, "lowerUpper")
+//		let key3 = Key("lower Upper")
+//		XCTAssertEqual(key3.rawValue, "lowerUpper")
+//		let key4 = Key("Upper Upper")
+//		XCTAssertEqual(key4.rawValue, "upperUpper")
+//		let key5 = Key("lower lower")
+//		XCTAssertEqual(key5.rawValue, "lowerLower")
+//
+//		let key6 = Key(rawValue: "raw value")
+//		XCTAssertEqual(key6.rawValue, "raw value")
+//	}
+    
+    func testKeySnakeInit() {
+        let key1 = Key("lower Upper")
+        XCTAssertEqual(key1.rawValue, "lower_upper")
+    }
 	
 	func testKeyedCollection() {
 		struct Foo: Keyed, Equatable {

@@ -16,7 +16,7 @@ public protocol Keyed {
 
 public extension Collection where Element: Keyed {
 	
-	public var keys: [Key] {
+	var keys: [Key] {
 		return self.map { $0.key }
 	}
 	
@@ -57,7 +57,7 @@ public struct Key: ExpressibleByStringLiteral, RawRepresentable, Hashable {
 	
 	/// Converts the string to lowerCamelCase.
 	public init(_ text: String) {
-		self.rawValue = text.lowerCamelCased
+		self.rawValue = text.lowerSnakeCased
 	}
 	
 	public init(keys: [Key]) {

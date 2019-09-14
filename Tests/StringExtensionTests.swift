@@ -17,4 +17,12 @@ class StringExtensionTests: XCTestCase {
 		let empty = ""
 		XCTAssertEqual(empty.lowerCamelCased, "")
 	}
+    
+    func testSnakeCase() {
+        let text = "one two three"
+        XCTAssertEqual(text.lowerSnakeCased, "one_two_three")
+        
+        let empty = ""
+        XCTAssertEqual(empty.lowerSnakeCased, "")
+    }
 }

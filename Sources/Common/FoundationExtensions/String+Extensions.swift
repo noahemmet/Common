@@ -121,6 +121,14 @@ public extension String {
 		return ([first] + rest).joined(separator: "")
 	}
 	
+    var lowerSnakeCased: String {
+        guard !isEmpty else {
+            return ""
+        }
+        let components = self.components(separatedBy: CharacterSet.alphanumerics.inverted)
+        let rest = components.map { String($0).lowercased() }
+        return rest.joined(separator: "_")
+    }
 	
 	/// Downcases the string and replaces whitespace with a `_`. Useful for keys.
 	var normalized: String {

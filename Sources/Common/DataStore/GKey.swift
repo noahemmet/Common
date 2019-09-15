@@ -41,10 +41,17 @@ public struct GKey<Item: GKeyed>: Hashable, ExpressibleByStringLiteral {
 	public var rawValue: String { return rawKey.rawValue }
 	public static var itemType: Item.Type { return Item.self }
 	
+  /// Will mutate the string.
 	public init(_ rawValue: String) {
 		rawKey = Key(rawValue)
 	}
+  
+  /// Will not mutate the string.
+  public init(rawValue: String) {
+    rawKey = Key(rawValue: rawValue)
+  }
 	
+  /// Will not mutate the string.
 	public init(_ key: Key) {
 		self.rawKey = key
 	}

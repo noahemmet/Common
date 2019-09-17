@@ -99,6 +99,9 @@ extension Collection where Element: GKeyed {
 	}
 	
 	public func filter(with keys: [GKey<Element>]) -> [Element] {
+//    guard !keys.isEmpty else {
+//      return Array(self)
+//    }
 		return self.filter { keys.contains($0.key) }
 	}
 	

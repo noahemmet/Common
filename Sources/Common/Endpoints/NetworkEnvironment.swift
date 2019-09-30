@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum Environment {
+public enum NetworkEnvironment {
     case production
     case staging
     

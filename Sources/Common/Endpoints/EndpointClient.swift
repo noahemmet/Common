@@ -12,10 +12,10 @@ open class EndpointClient: NSObject {
     public typealias ResponseHandler<Response: EndpointResponse> = (Response) -> Void
     private typealias DownloadsByRequests = [ObjectIdentifier: Any]
     private var downloadsByRequests: DownloadsByRequests = [:]
-    private let environment: Environment
+    private let environment: NetworkEnvironment
     private var dataStore: DataStore
     
-    public init(environment: Environment, dataStore: DataStore) {
+    public init(environment: NetworkEnvironment, dataStore: DataStore) {
         self.environment = environment
         self.dataStore = dataStore
     }

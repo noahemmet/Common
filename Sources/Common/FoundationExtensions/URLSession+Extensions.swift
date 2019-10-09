@@ -7,6 +7,9 @@
 //
 
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 public extension URLSession {
     func sendSyncronousRequest(url: URL) -> (Data?, URLResponse?, Error?) {

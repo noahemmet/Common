@@ -7,6 +7,9 @@
 //
 
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 open class EndpointClient: NSObject {
     public typealias ResponseHandler<Response: EndpointResponse> = (Response) -> Void

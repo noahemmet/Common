@@ -8,10 +8,8 @@
 
 import Foundation
 
-public enum BasicError: Error {
+public enum BasicError: Error, Hashable {
     case reason(String)
-    case unknownValue(Any)
-    case unknownType(Any.Type)
 }
 
 public struct ThrownError: Error, CustomStringConvertible {
@@ -28,7 +26,7 @@ public struct ThrownError: Error, CustomStringConvertible {
         dump(self)
     }
     
-    public init(_ reason: String, file: String = #file, line: Int = #line, function: String = #function) {
+  public init(_ reason: String, file: String = #file, line: Int = #line, function: String = #function) {
         self.init(BasicError.reason(reason), file: file, line: line, function: function)
     }
     

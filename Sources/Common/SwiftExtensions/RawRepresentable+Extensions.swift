@@ -9,10 +9,10 @@
 import Foundation
 
 public extension RawRepresentable {
-    init(_ rawValue: RawValue) throws {
-        guard let value = Self.init(rawValue: rawValue) else {
-            throw BasicError.unknownValue(rawValue)
-        }
-        self = value
+  init(_ rawValue: RawValue) throws {
+    guard let value = Self.init(rawValue: rawValue) else {
+      throw BasicError.reason("Unknown rawValue: \(rawValue)")
     }
+    self = value
+  }
 }

@@ -1,4 +1,3 @@
-#if canImport(XCTest)
 import XCTest
 
 extension XCTestCase {
@@ -27,4 +26,3 @@ extension XCTestCase {
     )
   }
 }
-#endif

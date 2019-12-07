@@ -10,7 +10,7 @@ import Foundation
 
 public extension RawRepresentable {
   init(_ rawValue: RawValue) throws {
-    guard let value = Self.init(rawValue: rawValue) else {
+    guard let value = Self(rawValue: rawValue) else {
       throw BasicError.reason("Unknown rawValue: \(rawValue)")
     }
     self = value

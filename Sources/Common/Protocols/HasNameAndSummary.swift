@@ -9,11 +9,11 @@
 import Foundation
 
 public protocol HasName {
-    var name: String { get }
+  var name: String { get }
 }
 
 public protocol HasSummary {
-    var summary: String { get }
+  var summary: String { get }
 }
 
 public typealias HasNameAndSummary = HasName & HasSummary

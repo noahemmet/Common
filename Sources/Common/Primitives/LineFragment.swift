@@ -9,10 +9,10 @@
 import Foundation
 
 public enum LineFragment {
-    case free([TouchPoint])
-    case straight([(TouchPoint, TouchPoint)])
-    case finished
-    
+  case free([TouchPoint])
+  case straight([(TouchPoint, TouchPoint)])
+  case finished
+
 //    public static func == (lhs: LineFragment, rhs: LineFragment) -> Bool {
 //        switch lhs {
 //        case .free(let lhsPoints):
@@ -27,16 +27,16 @@ public enum LineFragment {
 //            return rhs == .finished
 //        }
 //    }
-    
-    public static func split(fragments: [LineFragment]) -> [[LineFragment]] {
-        let split = fragments.split(whereSeparator: { fragment in 
-            if case .finished = fragment {
-                return true
-            } else {
-                return false
-            }
-        })
-        return split.map { Array($0) }
-    }
+
+  public static func split(fragments: [LineFragment]) -> [[LineFragment]] {
+    let split = fragments.split(whereSeparator: { fragment in 
+      if case .finished = fragment {
+        return true
+      } else {
+        return false
+      }
+    })
+    return split.map { Array($0) }
+  }
 }
 

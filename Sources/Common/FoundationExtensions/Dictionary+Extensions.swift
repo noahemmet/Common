@@ -9,27 +9,26 @@
 import Foundation
 
 extension Dictionary {
-    public enum Error: Swift.Error {
-        case unknownValue(Key)
+  public enum Error: Swift.Error {
+    case unknownValue(Key)
+  }
+
+  public func value<V>(for key: Key) throws -> V {
+    guard let value = self[key] as? V else {
+      throw Error.unknownValue(key)
     }
-    public func value<V>(for key: Key) throws -> V {
-        guard let value = self[key] as? V else {
-            throw Error.unknownValue(key)
-        }
-        return value
-    }
+    return value
+  }
 }
 
 public extension Dictionary where Value: Equatable {
-    func subtracting(_ other: Dictionary) -> Dictionary {
-        var copy = self
-        for (key, _) in self {
-            if let _ = other[key] {
-                copy[key] = nil
-            }
-        }
-        return copy
+  func subtracting(_ other: Dictionary) -> Dictionary {
+    var copy = self
+    for (key, _) in self {
+      if let _ = other[key] {
+        copy[key] = nil
+      }
     }
-    
-    
+    return copy
+  }
 }

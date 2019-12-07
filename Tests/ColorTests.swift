@@ -11,19 +11,17 @@ import Common
 import XCTest
 
 class ColorTests: XCTestCase {
-    
-    override func setUp() {
-        super.setUp()
-    }
-    
-    override func tearDown() {
-        super.tearDown()
-    }
-    
-    func testColors() throws {
-		XCTAssertNoThrow(try Color(hex: "DDEDDE"))
+  override func setUp() {
+    super.setUp()
+  }
+  
+  override func tearDown() {
+    super.tearDown()
+  }
+  
+  func testColors() throws {
+    XCTAssertNoThrow(try Color(hex: "DDEDDE"))
 //        let uiColor = color.uiColor
 //        assert(color == uiColor.color.uiColor.color)
-    }
-    
+  }
 }

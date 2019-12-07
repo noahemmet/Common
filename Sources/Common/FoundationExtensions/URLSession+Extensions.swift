@@ -8,23 +8,23 @@
 
 import Foundation
 #if canImport(FoundationNetworking)
-import FoundationNetworking
+  import FoundationNetworking
 #endif
 
 public extension URLSession {
-    func sendSyncronousRequest(url: URL) -> (Data?, URLResponse?, Error?) {
-        let semaphore = DispatchSemaphore(value: 0)
-        var data: Data?
-        var response: URLResponse?
-        var error: Error?
-        let task = self.dataTask(with: url) { taskData, taskResponse, taskError in
-            data = taskData
-            response = taskResponse
-            error = taskError
-            semaphore.signal()
-        }
-        task.resume()
-        semaphore.wait()
-        return (data, response, error)
+  func sendSyncronousRequest(url: URL) -> (Data?, URLResponse?, Error?) {
+    let semaphore = DispatchSemaphore(value: 0)
+    var data: Data?
+    var response: URLResponse?
+    var error: Error?
+    let task = self.dataTask(with: url) { taskData, taskResponse, taskError in
+      data = taskData
+      response = taskResponse
+      error = taskError
+      semaphore.signal()
     }
+    task.resume()
+    semaphore.wait()
+    return (data, response, error)
+  }
 }

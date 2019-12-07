@@ -11,35 +11,34 @@ import Common
 import XCTest
 
 class DataStoreTests: XCTestCase {
-    
-    var dataStore: DataStore!
-    
-    struct Bar: UniqueIdentifiable, Equatable {
-        var id: Identifier<DataStoreTests.Bar>
-        init(id: Identifier<DataStoreTests.Bar>) {
-            self.id = id
-        }
+  var dataStore: DataStore!
+  
+  struct Bar: UniqueIdentifiable, Equatable {
+    var id: Identifier<DataStoreTests.Bar>
+    init(id: Identifier<DataStoreTests.Bar>) {
+      self.id = id
     }
-    
-    struct Foo: UniqueIdentifiable, Equatable {
-        var id: Identifier<DataStoreTests.Foo>
-        var string: String
-        init(id: Identifier<DataStoreTests.Foo>, string: String) {
-            self.id = id
-            self.string = string
-        }
+  }
+  
+  struct Foo: UniqueIdentifiable, Equatable {
+    var id: Identifier<DataStoreTests.Foo>
+    var string: String
+    init(id: Identifier<DataStoreTests.Foo>, string: String) {
+      self.id = id
+      self.string = string
     }
-    
-    override func setUp() {
-        super.setUp()
-        dataStore = DataStore(testClass: self)
-    }
-    
-    override func tearDown() {
-        dataStore = nil
-        super.tearDown()
-    }
-    
+  }
+  
+  override func setUp() {
+    super.setUp()
+    dataStore = DataStore(testClass: self)
+  }
+  
+  override func tearDown() {
+    dataStore = nil
+    super.tearDown()
+  }
+  
 //    func testSetAndGetValue() throws {
 //        let bar = Bar()
 //        dataStore.setValue(bar)

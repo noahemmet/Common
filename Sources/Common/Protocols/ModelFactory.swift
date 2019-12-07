@@ -9,9 +9,9 @@
 import Foundation
 
 open class ModelFactory {
-    public let dataStore: DataStore
+  public let dataStore: DataStore
 
-    public init(dataStore: DataStore) {
-        self.dataStore = dataStore
-    }
+  public init(dataStore: DataStore) {
+    self.dataStore = dataStore
+  }
 }

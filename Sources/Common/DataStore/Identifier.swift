@@ -9,31 +9,31 @@
 import Foundation
 
 public struct Identifier<Value: UniqueIdentifiable>: Codable, Hashable {
-    public let uuid: UUID
+  public let uuid: UUID
 
-    public init(uuid: UUID = UUID()) {
-        self.uuid = uuid
-    }
-    
-    public init?(optionalUUID: UUID?) {
-        guard let optionalUUID = optionalUUID else { return nil }
-        self.uuid = optionalUUID
-    }
-    
-    public func map<Other: UniqueIdentifiable>(as otherType: Other.Type = Other.self) -> Identifier<Other> {
-        return Identifier<Other>(uuid: self.uuid)
-    }
-    
-    public func value(in dataStore: DataStore) throws -> Value {
-        let value = try dataStore.value(for: self)
-        return value
-    }
+  public init(uuid: UUID = UUID()) {
+    self.uuid = uuid
+  }
+
+  public init?(optionalUUID: UUID?) {
+    guard let optionalUUID = optionalUUID else { return nil }
+    self.uuid = optionalUUID
+  }
+
+  public func map<Other: UniqueIdentifiable>(as otherType: Other.Type = Other.self) -> Identifier<Other> {
+    return Identifier<Other>(uuid: self.uuid)
+  }
+
+  public func value(in dataStore: DataStore) throws -> Value {
+    let value = try dataStore.value(for: self)
+    return value
+  }
 }
 
 public extension UUID {
-    func map<Other: UniqueIdentifiable>(as otherType: Other.Type = Other.self) -> Identifier<Other> {
-        return Identifier<Other>(uuid: self)
-    }
+  func map<Other: UniqueIdentifiable>(as otherType: Other.Type = Other.self) -> Identifier<Other> {
+    return Identifier<Other>(uuid: self)
+  }
 }
 
 //extension Array where Element == Identifier<UniqueIdentifiable> {
@@ -44,10 +44,11 @@ public extension UUID {
 //}
 
 extension Identifier: CustomStringConvertible, CustomDebugStringConvertible {
-    public var description: String {
-        return "\(Value.self)Identifier(\(uuid))"
-    }
-    public var debugDescription: String {
-        return description
-    }
+  public var description: String {
+    return "\(Value.self)Identifier(\(uuid))"
+  }
+
+  public var debugDescription: String {
+    return description
+  }
 }

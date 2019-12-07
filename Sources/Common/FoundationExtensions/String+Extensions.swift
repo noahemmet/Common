@@ -141,7 +141,7 @@ public extension String {
   }
   
   static func random(length: Int, allowedChars: String = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789") -> String {
-    let string = String((0..<length).map{ _ in allowedChars.randomElement()! })
+    let string = String((0..<length).map { _ in allowedChars.randomElement()! })
     return string
   }
 }
@@ -149,7 +149,6 @@ public extension String {
 // MARK: - Splitting
 
 public extension String {
-  
   /// https://stackoverflow.com/a/31727051
   func slice(from: String, to: String) -> String? {
     return (range(of: from)?.upperBound).flatMap { substringFrom in
@@ -219,7 +218,7 @@ public extension String {
       if index == 0 {
         let firstBetween = string.substring(to: matchResult.result.range.location)
         wordSplitResults.append(.between(firstBetween))
-      } else if let previousElement = matchResults.element(at: index-1) {
+      } else if let previousElement = matchResults.element(at: index - 1) {
         let range = NSRange(location: previousElement.result.range.upperBound, length: matchResult.result.range.location - previousElement.result.range.upperBound)
         let previousBetween = string.substring(with: range)
         wordSplitResults.append(.between(previousBetween))
@@ -228,7 +227,7 @@ public extension String {
       wordSplitResults.append(.match(matchResult.match))
       
       // append the last inbetween, if any
-      let isLast = (matchResults.count == index+1)
+      let isLast = (matchResults.count == index + 1)
       if isLast {
         let lastMatchIndex = matchResult.result.range.location + matchResult.result.range.length
         let endText = string.substring(from: lastMatchIndex)
@@ -245,25 +244,30 @@ public extension String {
   subscript (i: Int) -> Character {
     return self[index(startIndex, offsetBy: i)]
   }
+  
   subscript (bounds: CountableRange<Int>) -> Substring {
     let start = index(startIndex, offsetBy: bounds.lowerBound)
     let end = index(startIndex, offsetBy: bounds.upperBound)
     return self[start ..< end]
   }
+  
   subscript (bounds: CountableClosedRange<Int>) -> Substring {
     let start = index(startIndex, offsetBy: bounds.lowerBound)
     let end = index(startIndex, offsetBy: bounds.upperBound)
     return self[start ... end]
   }
+  
   subscript (bounds: CountablePartialRangeFrom<Int>) -> Substring {
     let start = index(startIndex, offsetBy: bounds.lowerBound)
     let end = index(endIndex, offsetBy: -1)
     return self[start ... end]
   }
+  
   subscript (bounds: PartialRangeThrough<Int>) -> Substring {
     let end = index(startIndex, offsetBy: bounds.upperBound)
     return self[startIndex ... end]
   }
+  
   subscript (bounds: PartialRangeUpTo<Int>) -> Substring {
     let end = index(startIndex, offsetBy: bounds.upperBound)
     return self[startIndex ..< end]
@@ -274,25 +278,30 @@ public extension Substring {
   subscript (i: Int) -> Character {
     return self[index(startIndex, offsetBy: i)]
   }
+  
   subscript (bounds: CountableRange<Int>) -> Substring {
     let start = index(startIndex, offsetBy: bounds.lowerBound)
     let end = index(startIndex, offsetBy: bounds.upperBound)
     return self[start ..< end]
   }
+  
   subscript (bounds: CountableClosedRange<Int>) -> Substring {
     let start = index(startIndex, offsetBy: bounds.lowerBound)
     let end = index(startIndex, offsetBy: bounds.upperBound)
     return self[start ... end]
   }
+  
   subscript (bounds: CountablePartialRangeFrom<Int>) -> Substring {
     let start = index(startIndex, offsetBy: bounds.lowerBound)
     let end = index(endIndex, offsetBy: -1)
     return self[start ... end]
   }
+  
   subscript (bounds: PartialRangeThrough<Int>) -> Substring {
     let end = index(startIndex, offsetBy: bounds.upperBound)
     return self[startIndex ... end]
   }
+  
   subscript (bounds: PartialRangeUpTo<Int>) -> Substring {
     let end = index(startIndex, offsetBy: bounds.upperBound)
     return self[startIndex ..< end]

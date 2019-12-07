@@ -9,16 +9,17 @@
 import Foundation
 
 public enum NetworkEnvironment {
-    case production
-    case staging
-    
-    public var baseURL: URL {
-        switch self {
-        case .production: return URL(string: "google.com")!
-        case .staging: return URL(string: "google.com")!
-        }
+  case production
+  case staging
+
+  public var baseURL: URL {
+    switch self {
+    case .production: return URL(string: "google.com")!
+    case .staging: return URL(string: "google.com")!
     }
-    public func url(with path: String) -> URL {
-        return URL(string: path, relativeTo: baseURL)!
-    }
+  }
+
+  public func url(with path: String) -> URL {
+    return URL(string: path, relativeTo: baseURL)!
+  }
 }

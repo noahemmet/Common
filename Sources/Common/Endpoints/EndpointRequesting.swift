@@ -8,18 +8,18 @@
 
 import Foundation
 #if canImport(FoundationNetworking)
-import FoundationNetworking
+  import FoundationNetworking
 #endif
 
 public protocol EndpointRequesting {
-    associatedtype Response: EndpointResponse
-    var path: String { get }
-    func response(_ httpResponse: HTTPURLResponse?, json: JSON?) throws -> Response
+  associatedtype Response: EndpointResponse
+  var path: String { get }
+  func response(_ httpResponse: HTTPURLResponse?, json: JSON?) throws -> Response
 }
 
 extension EndpointRequesting {
-    public func response(_ httpResponse: HTTPURLResponse?, json: JSON?) throws -> Response {
-        let response = Response(httpResponse, json: json)
-        return response
-    }
+  public func response(_ httpResponse: HTTPURLResponse?, json: JSON?) throws -> Response {
+    let response = Response(httpResponse, json: json)
+    return response
+  }
 }

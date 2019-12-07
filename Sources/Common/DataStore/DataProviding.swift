@@ -9,18 +9,16 @@
 import Foundation
 
 public enum DataProvidingFetchCache {
-    case none
+  case none
 }
 
 public protocol DataProviding {
-    associatedtype Model
-    typealias FetchHandler = (Result<Model>) -> Void
-    func fetch(from dataStore: DataStore, cache: DataProvidingFetchCache, fetchHandler: FetchHandler)
-    func observe(_ fetchHandler: FetchHandler)
+  associatedtype Model
+  typealias FetchHandler = (Result<Model>) -> Void
+  func fetch(from dataStore: DataStore, cache: DataProvidingFetchCache, fetchHandler: FetchHandler)
+  func observe(_ fetchHandler: FetchHandler)
 }
 
 public struct DataQuery {
-    func fetch<Model>(type: Model.Type = Model.self) {
-        
-    }
+  func fetch<Model>(type: Model.Type = Model.self) {}
 }

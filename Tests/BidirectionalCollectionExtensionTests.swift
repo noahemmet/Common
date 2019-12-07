@@ -3,9 +3,9 @@ import Common
 
 class BidirectionalCollectionExtensionTests: XCTestCase {
   override func setUp() {}
-  
+
   override func tearDown() {}
-  
+
   func testNeighbors() {
     let array = [1, 2, 3, 4, 5]
     XCTAssertEqual(array.neighbors(around: 1, loop: true), [5, 2])

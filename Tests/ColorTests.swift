@@ -14,11 +14,11 @@ class ColorTests: XCTestCase {
   override func setUp() {
     super.setUp()
   }
-  
+
   override func tearDown() {
     super.tearDown()
   }
-  
+
   func testColors() throws {
     XCTAssertNoThrow(try Color(hex: "DDEDDE"))
 //        let uiColor = color.uiColor

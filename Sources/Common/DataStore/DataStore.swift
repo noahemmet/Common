@@ -53,7 +53,9 @@ public class DataStore {
   
   // MARK: Multiple Values
   
-  public func allValues<Value: UniqueIdentifiable>(ofType valueType: Value.Type = Value.self) throws -> Set<Value> {
+  public func allValues<Value: UniqueIdentifiable>(ofType valueType: Value.Type = Value.self) throws -> Set<
+    Value
+  > {
     let valuesByUUIDs = storage[ObjectIdentifier(Value.self)] ?? [:]
     let values = valuesByUUIDs.compactMap { $0.value as? Value }
     return Set(values)
@@ -75,7 +77,10 @@ public class DataStore {
   
   // MARK: Single Value
   
-  public func value<Value: UniqueIdentifiable>(ofType valueType: Value.Type = Value.self, for id: Identifier<Value>) throws -> Value {
+  public func value<Value: UniqueIdentifiable>(
+    ofType valueType: Value.Type = Value.self,
+    for id: Identifier<Value>
+  ) throws -> Value {
     let values: Set<Value> = try self.allValues()
     let value = values.first(where: { $0.id == id })
     return try unwrap { value }

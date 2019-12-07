@@ -53,14 +53,34 @@ public extension String {
   }
   
   func tokenize(prefix: String, until suffix: String, options: String.CompareOptions = []) -> [TokenizeResult] {
-    return self.tokenize(prefix: prefix, untilEither: .right(suffix), dropPrefix: true, options: options)
+    return self.tokenize(
+      prefix: prefix,
+      untilEither: .right(suffix),
+      dropPrefix: true,
+      options: options
+    )
   }
   
-  func tokenize(prefix: String, untilAny suffix: CharacterSet = CharacterSet.whitespaces.union(.punctuationCharacters), dropPrefix: Bool = true, options: String.CompareOptions = []) -> [TokenizeResult] {
-    return self.tokenize(prefix: prefix, untilEither: .left(suffix), dropPrefix: dropPrefix, options: options)
+  func tokenize(
+    prefix: String,
+    untilAny suffix: CharacterSet = CharacterSet.whitespaces.union(.punctuationCharacters),
+    dropPrefix: Bool = true,
+    options: String.CompareOptions = []
+  ) -> [TokenizeResult] {
+    return self.tokenize(
+      prefix: prefix,
+      untilEither: .left(suffix),
+      dropPrefix: dropPrefix,
+      options: options
+    )
   }
   
-  private func tokenize(prefix: String, untilEither suffix: Either<CharacterSet, String>, dropPrefix: Bool = true, options: String.CompareOptions = []) -> [TokenizeResult] {
+  private func tokenize(
+    prefix: String,
+    untilEither suffix: Either<CharacterSet, String>,
+    dropPrefix: Bool = true,
+    options: String.CompareOptions = []
+  ) -> [TokenizeResult] {
     guard self.contains(prefix) else {
       // If we don't contain the prefix at all, no need to search for it.
       return [.text(self)]
@@ -98,7 +118,11 @@ public extension String {
       let suffixRange: Range<String.Index>?
       switch suffix {
       case .left(let characterSet):
-        suffixRange = rangeOfCharacter(from: characterSet, options: options, range: indexAfterPrefix ..< endIndex)
+        suffixRange = rangeOfCharacter(
+          from: characterSet,
+          options: options,
+          range: indexAfterPrefix ..< endIndex
+        )
       case .right(let string):
         suffixRange = range(of: string, options: options, range: indexAfterPrefix ..< endIndex)
       }

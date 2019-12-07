@@ -26,12 +26,15 @@ open class EndpointClient: NSObject {
   // MARK: - Network Calls
   
   /// Async
-  open func send<Request: EndpointRequesting>(_ request: Request, responseHandler: ResponseHandler<Request.Response>?) {
+  open func send<Request: EndpointRequesting>(
+    _ request: Request,
+    responseHandler: ResponseHandler<Request.Response>?
+  ) {
     self.setDownloadState(.loading, for: request)
     let urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
     
     let url = environment.url(with: request.path)
-    let dataTask = urlSession.dataTask(with: url) { (data, response, error) in
+    let dataTask = urlSession.dataTask(with: url) { data, response, error in
       do {
         let data = try unwrap { data }
         let anyJSON = try JSONSerialization.jsonObject(with: data, options: [])
@@ -65,13 +68,19 @@ open class EndpointClient: NSObject {
   
   // MARK: - Caching
   
-  open func getDownloadState<Value, Request: EndpointRequesting>(for request: Request) -> DownloadState<Value> {
-    let anyDownloadState = downloadsByRequests[ObjectIdentifier(Request.self), default: DownloadState<Value>.none]
+  open func getDownloadState<Value, Request: EndpointRequesting>(for request: Request) -> DownloadState<
+    Value
+  > {
+    let anyDownloadState = downloadsByRequests[ObjectIdentifier(Request.self),
+                                               default: DownloadState<Value>.none]
     let downloadState = anyDownloadState as! DownloadState<Value>
     return downloadState
   }
   
-  open func setDownloadState<Request: EndpointRequesting>(_ downloadState: DownloadState<Request.Response>, for request: Request) {
+  open func setDownloadState<Request: EndpointRequesting>(
+    _ downloadState: DownloadState<Request.Response>,
+    for request: Request
+  ) {
     downloadsByRequests[ObjectIdentifier(Request.self)] = request
   }
 }

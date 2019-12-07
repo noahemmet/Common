@@ -26,7 +26,12 @@ public struct ThrownError: Error, CustomStringConvertible {
     dump(self)
   }
 
-  public init(_ reason: String, file: String = #file, line: Int = #line, function: String = #function) {
+  public init(
+    _ reason: String,
+    file: String = #file,
+    line: Int = #line,
+    function: String = #function
+  ) {
     self.init(BasicError.reason(reason), file: file, line: line, function: function)
   }
 
@@ -43,7 +48,11 @@ public struct ThrownError: Error, CustomStringConvertible {
   }
 }
 
-public func fatalError(_ error: @autoclosure () -> Error, file: StaticString = #file, line: UInt = #line) -> Never {
+public func fatalError(
+  _ error: @autoclosure () -> Error,
+  file: StaticString = #file,
+  line: UInt = #line
+) -> Never {
   let errorString = "\(error())"
   print(errorString)
   return fatalError(errorString, file: file, line: line)

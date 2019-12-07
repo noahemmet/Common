@@ -39,30 +39,30 @@ public struct GKey<Item: GKeyed>: Hashable, ExpressibleByStringLiteral {
   public var rawKey: Key
   public var rawValue: String { return rawKey.rawValue }
   public static var itemType: Item.Type { return Item.self }
-  
+
   /// Will mutate the string.
   public init(_ rawValue: String) {
     rawKey = Key(rawValue)
   }
-  
+
   /// Will not mutate the string.
   public init(rawValue: String) {
     rawKey = Key(rawValue: rawValue)
   }
-  
+
   /// Will not mutate the string.
   public init(_ key: Key) {
     self.rawKey = key
   }
-  
+
   public init(stringLiteral: String) {
     self.init(stringLiteral)
   }
-  
+
   public mutating func makeUnique(length: Int = 8) {
     self.rawKey.makeUnique()
   }
-  
+
   public func uniquing(length: Int = 8) -> GKey {
     var key = self
     key.makeUnique()
@@ -82,7 +82,7 @@ extension GKey: Codable {
     let key = try container.decode(Key.self)
     self.init(key)
   }
-  
+
   public func encode(to encoder: Encoder) throws {
     var container = encoder.singleValueContainer()
     try container.encode(rawKey)
@@ -93,15 +93,17 @@ extension Collection where Element: GKeyed {
   public var keys: [GKey<Element>] {
     return self.map { $0.key }
   }
-  
+
   public func filter(with keys: [GKey<Element>]) -> [Element] {
 //    guard !keys.isEmpty else {
 //      return Array(self)
 //    }
     return self.filter { keys.contains($0.key) }
   }
-  
+
   public func first(with key: GKey<Element>) throws -> Element {
-    return try self.first(where: { $0.key == key }).unwrap(orThrow: "Element not found with key: \(key)")
+    return try self.first(where: { $0.key == key }).unwrap(
+      orThrow: "Element not found with key: \(key)"
+    )
   }
 }

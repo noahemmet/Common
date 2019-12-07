@@ -14,7 +14,12 @@ public enum UnwrapError<K>: Error {
 }
 
 // The closure is at the end so as to get the trailing closure sugar.
-public func unwrap<K>(file: String = #file, line: Int = #line, function: String = #function, _ closure: () throws -> K?) throws -> K {
+public func unwrap<K>(
+  file: String = #file,
+  line: Int = #line,
+  function: String = #function,
+  _ closure: () throws -> K?
+) throws -> K {
   guard let unwrapped = try closure() else {
     throw ThrownError(UnwrapError.failed(type: K.self), file: file, line: line, function: function)
   }
@@ -43,7 +48,12 @@ public extension Optional {
     return unwrapped
   }
 
-  func unwrap(file: String = #file, line: Int = #line, function: String = #function, orThrow reason: String) throws -> Wrapped {
+  func unwrap(
+    file: String = #file,
+    line: Int = #line,
+    function: String = #function,
+    orThrow reason: String
+  ) throws -> Wrapped {
     guard let unwrapped = self else {
       throw ThrownError(reason, file: file, line: line, function: function)
     }

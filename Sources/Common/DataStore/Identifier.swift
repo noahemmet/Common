@@ -20,7 +20,9 @@ public struct Identifier<Value: UniqueIdentifiable>: Codable, Hashable {
     self.uuid = optionalUUID
   }
 
-  public func map<Other: UniqueIdentifiable>(as otherType: Other.Type = Other.self) -> Identifier<Other> {
+  public func map<Other: UniqueIdentifiable>(as otherType: Other.Type = Other.self) -> Identifier<
+    Other
+  > {
     return Identifier<Other>(uuid: self.uuid)
   }
 

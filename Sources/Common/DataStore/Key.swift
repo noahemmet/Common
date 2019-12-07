@@ -18,14 +18,14 @@ public extension Collection where Element: Keyed {
   var keys: [Key] {
     return self.map { $0.key }
   }
-  
+
   func keyed() -> [Key: [Element]] {
     let dict: [Key: [Element]] = Dictionary(grouping: self) { element in
       return element.key
     }
     return dict
   }
-  
+
   /// Returns an array of the same element, but with unique keys if necessary
   func uniquedKeys(appendixLength: Int = 8) -> [Element] {
     let keys = map { $0.key }
@@ -48,34 +48,34 @@ public extension Collection where Element: Keyed {
 
 public struct Key: ExpressibleByStringLiteral, RawRepresentable, Hashable {
   public let rawValue: String
-  
+
   /// Uses the raw string.
   public init(rawValue: String) {
     self.rawValue = rawValue
   }
-  
+
   /// Converts the string to lowerCamelCase.
   public init(_ text: String) {
     self.rawValue = text.lowerSnakeCased
   }
-  
+
   public init(keys: [Key]) {
     self.rawValue = keys.map { $0.rawValue }.joined(separator: "+")
   }
-  
+
   public init(stringLiteral: String) {
     self.init(stringLiteral)
   }
-  
+
   public var subkeys: [Key] {
     let rawValues = self.rawValue.components(separatedBy: "+")
     return rawValues.map { Key(rawValue: $0) }
   }
-  
+
   public mutating func makeUnique(length: Int = 8) {
     self = Key(rawValue: rawValue + "_" + String.random(length: length))
   }
-  
+
   public func uniquing(length: Int = 8) -> Key {
     var key = self
     key.makeUnique()
@@ -96,7 +96,7 @@ extension Key: Codable {
     let rawValue = try container.decode(String.self)
     self.init(rawValue)
   }
-  
+
   public func encode(to encoder: Encoder) throws {
     var container = encoder.singleValueContainer()
     try container.encode(rawValue)

@@ -19,7 +19,7 @@ public extension Array {
   mutating func removeRandom(keep: Int) {
     let dropCount = count - keep
     guard dropCount > 0 else { return }
-    for _ in (0..<dropCount) {
+    for _ in 0..<dropCount {
       _ = self.dropRandom()
     }
   }
@@ -143,7 +143,11 @@ public extension Array where Element: Equatable {
     }
   }
   
-  mutating func replaceFirst<Property: Equatable>(_ element: Element, uniquedBy keyPath: PartialKeyPath<Element>, propertyType: Property.Type = Property.self) {
+  mutating func replaceFirst<Property: Equatable>(
+    _ element: Element,
+    uniquedBy keyPath: PartialKeyPath<Element>,
+    propertyType: Property.Type = Property.self
+  ) {
     if let property = element[keyPath: keyPath] as? Property,
       let matchingIndex = self.firstIndex(where: { $0[keyPath: keyPath] as! Property == property }) {
       remove(at: matchingIndex)

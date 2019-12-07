@@ -22,7 +22,11 @@ class StringTokenizationTests: XCTestCase {
   
   func testTokenizeCharacterSetNotDroppingPrefix() throws { 
     let string = "Hi, my name is @token; nice to meet ya. @token2."
-    let tokens = string.tokenize(prefix: "@", untilAny: CharacterSet.whitespaces.union(.punctuationCharacters), dropPrefix: false)
+    let tokens = string.tokenize(
+      prefix: "@",
+      untilAny: CharacterSet.whitespaces.union(.punctuationCharacters),
+      dropPrefix: false
+    )
     XCTAssertEqual(tokens[0].asText, "Hi, my name is ")
     XCTAssertEqual(tokens[1].asToken, "@token")
     XCTAssertEqual(tokens[2].asText, "; nice to meet ya. ")
@@ -54,10 +58,18 @@ class StringTokenizationTests: XCTestCase {
   
   func testTokenizeCharacterSetPlainString() throws { 
     let string = "No tokens here."
-    let tokensDroppingPrefix = string.tokenize(prefix: "@", untilAny: CharacterSet.whitespaces.union(.punctuationCharacters), dropPrefix: true)
+    let tokensDroppingPrefix = string.tokenize(
+      prefix: "@",
+      untilAny: CharacterSet.whitespaces.union(.punctuationCharacters),
+      dropPrefix: true
+    )
     XCTAssertEqual(tokensDroppingPrefix[0].asText, "No tokens here.")
     
-    let tokensNotDroppingPrefix = string.tokenize(prefix: "@", untilAny: CharacterSet.whitespaces.union(.punctuationCharacters), dropPrefix: false)
+    let tokensNotDroppingPrefix = string.tokenize(
+      prefix: "@",
+      untilAny: CharacterSet.whitespaces.union(.punctuationCharacters),
+      dropPrefix: false
+    )
     XCTAssertEqual(tokensNotDroppingPrefix[0].asText, "No tokens here.")
   }
   

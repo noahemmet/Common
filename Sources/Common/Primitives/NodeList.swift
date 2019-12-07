@@ -31,7 +31,7 @@ public class Node<V> {
     self.parent = parent
   }
 
-  public init(_ value: V, parent: Node<V>? = nil, children: ((Node<V>) -> [Node<V>])) {
+  public init(_ value: V, parent: Node<V>? = nil, children: (Node<V>) -> [Node<V>]) {
     self.value = value
     self.children = []
     self.parent = parent 

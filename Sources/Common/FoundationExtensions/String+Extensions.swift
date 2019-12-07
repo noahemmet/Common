@@ -52,10 +52,17 @@ public extension String {
   }
   
   // https://stackoverflow.com/a/47220964
-  func ranges(of substring: String, options: CompareOptions = [], locale: Locale? = nil) -> [Range<Index>] {
+  func ranges(of substring: String, options: CompareOptions = [], locale: Locale? = nil) -> [Range<
+    Index
+  >] {
     var ranges: [Range<Index>] = []
     while ranges.last.map({ $0.upperBound < self.endIndex }) ?? true,
-      let range = self.range(of: substring, options: options, range: (ranges.last?.upperBound ?? self.startIndex)..<self.endIndex, locale: locale)
+      let range = self.range(
+        of: substring,
+        options: options,
+        range: (ranges.last?.upperBound ?? self.startIndex)..<self.endIndex,
+        locale: locale
+      )
     {
       ranges.append(range)
     }
@@ -82,7 +89,12 @@ public extension String {
   }
   
   // https://stackoverflow.com/a/47220964
-  func replacing<Result>(_ strings: [String], options: CompareOptions = [], locale: Locale? = nil, with handler: (String, [Range<Index>]) throws -> Result) rethrows -> [Result] {
+  func replacing<Result>(
+    _ strings: [String],
+    options: CompareOptions = [],
+    locale: Locale? = nil,
+    with handler: (String, [Range<Index>]) throws -> Result
+  ) rethrows -> [Result] {
     let rangesBySubstring = strings.flatMap { [$0: self.ranges(of: $0)] }
     let results: [Result] = try rangesBySubstring.map { (arg) -> Result in
       let (match, ranges) = arg
@@ -140,7 +152,10 @@ public extension String {
     return replacingOccurrences(of: "\n", with: "   ")
   }
   
-  static func random(length: Int, allowedChars: String = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789") -> String {
+  static func random(
+    length: Int,
+    allowedChars: String = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+  ) -> String {
     let string = String((0..<length).map { _ in allowedChars.randomElement()! })
     return string
   }
@@ -171,7 +186,7 @@ public extension String {
   func words() -> [String] {
     let range = startIndex..<endIndex
     var words: [String] = []
-    self.enumerateSubstrings(in: range, options: .byWords) { (substring, _, _, _) in
+    self.enumerateSubstrings(in: range, options: .byWords) { substring, _, _, _ in
       words.append(substring ?? "")
     }
     return words
@@ -202,7 +217,11 @@ public extension String {
     let regex = try! NSRegularExpression(pattern: "#[a-z0-9]+", options: .caseInsensitive)
     
     let string = self as NSString
-    let matchResults: [(match: String, result: NSTextCheckingResult)] = regex.matches(in: self, options: [], range: NSRange(location: 0, length: string.length)).map { result in
+    let matchResults: [(match: String, result: NSTextCheckingResult)] = regex.matches(
+      in: self,
+      options: [],
+      range: NSRange(location: 0, length: string.length)
+    ).map { result in
       let match = string.substring(with: result.range)
       return (match: match, result: result)
     }
@@ -219,7 +238,10 @@ public extension String {
         let firstBetween = string.substring(to: matchResult.result.range.location)
         wordSplitResults.append(.between(firstBetween))
       } else if let previousElement = matchResults.element(at: index - 1) {
-        let range = NSRange(location: previousElement.result.range.upperBound, length: matchResult.result.range.location - previousElement.result.range.upperBound)
+        let range = NSRange(
+          location: previousElement.result.range.upperBound,
+          length: matchResult.result.range.location - previousElement.result.range.upperBound
+        )
         let previousBetween = string.substring(with: range)
         wordSplitResults.append(.between(previousBetween))
       }

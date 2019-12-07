@@ -15,7 +15,7 @@ public extension Sequence where Iterator.Element: Hashable {
 }
 
 public extension Sequence {
-  func uniqued<T: Hashable>(by map: ((Element) -> T)) -> [Element] {
+  func uniqued<T: Hashable>(by map: (Element) -> T) -> [Element] {
     var set: Set<T> = []
     var ordered: [Element] = []
     for element in self {

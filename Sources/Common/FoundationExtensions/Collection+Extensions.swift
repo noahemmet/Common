@@ -48,12 +48,17 @@ public extension Collection where Element: Equatable {
 }
 
 public extension Collection {
-  func first<T>(as type: T.Type = T.self, where predicate: (Element) throws -> T?) rethrows -> T? {
+  typealias FirstAsPredicate<T> = (Element) throws -> T?
+  func first<T>(as type: T.Type = T.self, where predicate: FirstAsPredicate<T>? = nil) rethrows -> T? {
     for element in self {
-      guard let t = try predicate(element) else {
-        continue
+      if let predicate = predicate {
+        guard let t = try? predicate(element) else {
+          continue
+        }
+        return t
+      } else if let t = element as? T {
+        return t
       }
-      return t
     }
     return nil
   }
